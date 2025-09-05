@@ -14,14 +14,14 @@
  - Generate SSH Key
  - Add the .pub SSH key to https://github.com/settings/keys
 
-### 2a. Clone the repo
+### Clone the repo
 ```
 cd ~/Projects   # or wherever you want it
 git clone git@github.com:<username>/<repo>.git
 cd <repo>
 ```
 
-### 2b. Link an Existing Local Folder
+### Link an Existing Local Folder
 ```
 cd ~/Projects/my-project
 git init # initialize git
