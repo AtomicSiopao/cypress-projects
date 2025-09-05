@@ -45,7 +45,6 @@ describe('General Components Practice', () => {
           .invoke('attr','href')
           .should('eq','https://www.youtube.com/@commitquality');
         cy.wait(5000).go('back');
-        
         /* Cypress only works on a single browser tab
         cy.get('[data-testid="link-newtab"]')
           .click()
