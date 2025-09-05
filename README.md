@@ -21,6 +21,8 @@ cat ~/.ssh/id_ed25519.pub
 ### Clone the repo
 ```
 cd ~/Projects   # or wherever you want it
+git config --global user.name "<USERNAME>"
+git config --global user.email "<EMAIL>"
 git clone git@github.com:<username>/<repo>.git
 cd <repo>
 ```
