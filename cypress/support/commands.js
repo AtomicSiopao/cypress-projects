@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// -- This is mainly used for the random popup in commitQualityPractice_accordionWithRandomPopup.cy.js
+Cypress.Commands.add('closeRandomPopup', () => {
+  cy.get('body').then(($body) => {
+    if ($body.find('.overlay-content').length > 0) {
+      cy.get('.overlay-content > button').click({ force: true });
+    }
+  });
+});
