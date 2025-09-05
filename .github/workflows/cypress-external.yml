@@ -22,4 +22,4 @@ jobs:
           run_install: true  # auto runs `pnpm install`
 
       - name: Run Cypress tests against external site
-        run: npx cypress run --spec ".\e2e\customtests\*.cy.js"
+        run: npx cypress run --spec ".\cypress\e2e\customtests\*.cy.js"
