@@ -12,6 +12,10 @@
 
 ### SSH Key
  - Generate SSH Key
+```
+ssh-keygen -t ed25519 -C "your@email.com"
+cat ~/.ssh/id_ed25519.pub
+```
  - Add the .pub SSH key to https://github.com/settings/keys
 
 ### Clone the repo
@@ -33,9 +37,9 @@ git checkout -b main origin/main
 
 ## Install Cypress.io via pnpm
 ```
- - `pnpm init`
- - `pnpm add --save-dev cypress`
- - `pnpm cypress open` # opens Cypress UI or check your packacge.json for shortcuts
+pnpm init
+pnpm add --save-dev cypress
+pnpm cypress open` # opens Cypress UI or check your packacge.json for shortcuts
 ```
 
 ## Commit and Push Commands
