@@ -37,5 +37,25 @@ describe('General Components Practice', () => {
         cy.get('[data-testid="checkbox3"]').click();
         cy.contains('.checkbox-container.container-outline > :nth-child(2) > :nth-child(3) > p', 'Checkbox 3 checked').should('be.visible');
     });
+
+    it('Interact with links', () => {
+        cy.get('.container-text').contains('General Components').click();
+        cy.get('[data-testid="link-same-tab"]')
+          .click()
+          .invoke('attr','href')
+          .should('eq','https://www.youtube.com/@commitquality');
+        cy.wait(5000).go('back');
+        
+        /* Cypress only works on a single browser tab
+        cy.get('[data-testid="link-newtab"]')
+          .click()
+          .invoke('attr','href')
+          .should('eq','https://www.youtube.com/@commitquality'); 
+        cy.get('[data-testid="link-newtab-practice"]')
+          .click()
+          .invoke('attr','href')
+          .should('eq','/practice');
+        */
+    });
     
 });
