@@ -25,4 +25,3 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          headless: true

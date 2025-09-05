@@ -6,7 +6,6 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/customtests/*.cy.js",
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      
     },
     viewportWidth: 1280,
     viewportHeight: 720,
