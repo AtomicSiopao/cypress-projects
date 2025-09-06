@@ -4,10 +4,8 @@ describe('Accordions Practice with Popup', () => {
         //cy.closeRandomPopup(); // check + close random popup if it appears
     });
 
-    it('Verify Accorion 2 elements - buttons', () => {
+    it('Verify Accordion 1 elements - buttons', () => {
         cy.get('.container-text').contains('Popups').click(); // first accordion
-        //cy.contains('Random Popup').should('be.visible'); // only waits for 5 seconds
-        //cy.closeRandomPopup();
         cy.get('[data-testid="accordion-1"]:nth-of-type(1)').click();
         cy.get('[data-testid="basic-click"]').click();
         cy.wait(1500);
@@ -26,27 +24,30 @@ describe('Accordions Practice with Popup', () => {
           .should('be.visible');
         cy.get('[data-testid="accordion-1"]:nth-of-type(1)').click();
     });
-    /*
         it('Verify Accordion 2 elements - radio buttons', () => { // second accordion
             cy.get('.container-text').contains('Popups').click();
-            cy.get('[data-testid="accordion-1"]:nth-of-type(2)').click();
-            cy.get('[value="option1"]').click();
+            cy.get('[data-testid="accordion-2"]').click();
+            cy.get('[data-testid="option1"]').click();
+            cy.closeRandomPopup();
             cy.contains('.component-container > p','option1 clicked').should('be.visible');
-            cy.get('[value="option2"]').click();
+            cy.get('[data-testid="option2"]').click();
+            cy.closeRandomPopup();
             cy.contains('.component-container > p','option2 clicked').should('be.visible');
-            cy.get('[data-testid="accordion-1"]:nth-of-type(2)').click();
+            cy.get('[data-testid="accordion-2"]').click();
         });
     
-        it('Verify Accorion 3 elements - checkboxes', () => {
+        it('Verify Accordion 3 elements - checkboxes', () => {
             cy.get('.container-text').contains('Popups').click();
-            cy.get('[data-testid="accordion-1"]:nth-of-type(3)').click();
+            cy.get('[data-testid="accordion-3"]').click();
             cy.get('[data-testid="checkbox1"]').click();
+            cy.closeRandomPopup();
             cy.contains('.container > :nth-child(1) > :nth-child(5) > :nth-child(1) > p', 'Checkbox 1 checked').should('be.visible');
             cy.get('[data-testid="checkbox2"]').click();
+            cy.closeRandomPopup();
             cy.contains('.container > :nth-child(1) > :nth-child(5) > :nth-child(2) > p', 'Checkbox 2 checked').should('be.visible');
             cy.get('[data-testid="checkbox3"]').click();
+            cy.closeRandomPopup();
             cy.contains('.container > :nth-child(1) > :nth-child(5) > :nth-child(3) > p', 'Checkbox 3 checked').should('be.visible');
-            cy.get('[data-testid="accordion-1"]:nth-of-type(3)').click();
+            cy.get('[data-testid="accordion-3"]').click();
         });
-    */
 });
