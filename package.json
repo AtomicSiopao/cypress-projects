@@ -1,11 +1,13 @@
 {
 	"devDependencies": {
-		"cypress": "^15.0.0"
+		"cypress": "^15.0.0",
+		"dotenv": "^17.2.2",
+		"dotenv-cli": "^10.0.0"
 	},
 	"scripts": {
-    "cy:open": "cypress open",
-	"e2e:chrome": "cypress run --browser chrome",
-	"e2e:electron": "cypress run --browser electron",
-	"e2e:headed": "cypress run --headed"
+		"cy:open": "cypress open",
+		"e2e:chrome": "cypress run --browser chrome",
+		"e2e:electron": "cypress run --browser electron",
+		"e2e:headed": "cypress run --headed"
 	}
 }

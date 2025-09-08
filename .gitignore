@@ -5,3 +5,6 @@ cypress/screenshots
 pnpm-lock.yaml
 fixtures/
 support/
+.env
+log
+*.log
