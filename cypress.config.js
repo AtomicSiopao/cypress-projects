@@ -4,7 +4,7 @@ console.log(process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_K
 module.exports = defineConfig({
   e2e: {
     "chromeWebSecurity": false,
-    specPattern: "cypress/e2e/customtests/*.cy.js",
+    specPattern: "cypress/e2e/customtests/**/*.cy.js",
     setupNodeEvents(on, config) {
       config.env.BROWSERSTACK_USERNAME = process.env.BROWSERSTACK_USERNAME;
       config.env.BROWSERSTACK_ACCESS_KEY = process.env.BROWSERSTACK_ACCESS_KEY;
