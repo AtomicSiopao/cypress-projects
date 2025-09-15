@@ -1,3 +1,5 @@
+[![starline](https://starlines.qoo.monster/assets/OWNER/REPO)](https://github.com/AtomicSiopao/cypress-projects)
+
 # SETUP
 ## Download dependencies
  - [NodeJS](https://nodejs.org/en)
