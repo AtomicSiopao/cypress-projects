@@ -1,4 +1,3 @@
-[![starline](https://starlines.qoo.monster/assets/OWNER/REPO)](https://github.com/AtomicSiopao/cypress-projects)
 [![starline](https://starlines.qoo.monster/assets/USER)](https://github.com/AtomicSiopao/cypress-projects)
 
 # SETUP
