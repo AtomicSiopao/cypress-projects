@@ -1,6 +1,4 @@
-[![starline](https://starlines.qoo.monster/assets/USER)](https://github.com/AtomicSiopao/cypress-projects)
-
-# SETUP
+# Cypress Project [![starline](https://starlines.qoo.monster/assets/USER)](https://github.com/AtomicSiopao/cypress-projects)
 ## Download dependencies
  - [NodeJS](https://nodejs.org/en)
  - pnpm
