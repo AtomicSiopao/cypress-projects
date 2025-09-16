@@ -6,19 +6,11 @@
     "browsers": [
         {
             "browser": "chrome",
-            "os": "Windows",
-            "versions": [
-                "latest",
-                "latest-1"
-            ]
+            "os": "Windows"
         },
         {
             "browser": "firefox",
-            "os": "Windows",
-            "versions": [
-                "latest",
-                "latest-1"
-            ]
+            "os": "Windows"
         }
     ],
     "run_settings": {
