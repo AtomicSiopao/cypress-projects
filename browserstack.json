@@ -6,7 +6,7 @@
     "browsers": [
         {
             "browser": "chrome",
-            "os": "Windows 10",
+            "os": "Windows",
             "versions": [
                 "latest",
                 "latest-1"
@@ -14,7 +14,7 @@
         },
         {
             "browser": "firefox",
-            "os": "Windows 11",
+            "os": "Windows",
             "versions": [
                 "latest",
                 "latest-1"
@@ -26,7 +26,7 @@
         "project_name": "cypress-projects",
         "build_name": "testv1",
         "exclude": [],
-        "parallels": "1",
+        "parallels": "2",
         "npm_dependencies": {},
         "auto_import_dev_dependencies": false,
         "exclude_dependencies": [],
