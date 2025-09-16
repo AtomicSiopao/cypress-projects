@@ -11,6 +11,14 @@
                 "latest",
                 "latest-1"
             ]
+        },
+        {
+            "browser": "firefox",
+            "os": "Windows 11",
+            "versions": [
+                "latest",
+                "latest-1"
+            ]
         }
     ],
     "run_settings": {
