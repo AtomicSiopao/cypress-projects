@@ -30,8 +30,8 @@ jobs:
           run_install: true  # auto runs `pnpm install`
 
       # Run Cypress tests using BrowserStack
-      #- name: Run Cypress on BrowserStack
-      #  uses: browserstack/github-actions/setup-env@master
+      - name: Run Cypress on BrowserStack
+        uses: browserstack/github-actions/setup-env@master
 
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
