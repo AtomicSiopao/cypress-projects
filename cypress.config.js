@@ -1,6 +1,5 @@
 const { defineConfig } = require("cypress");
 require("dotenv").config();
-console.log(process.env.BROWSERSTACK_USERNAME, process.env.BROWSERSTACK_ACCESS_KEY);
 module.exports = defineConfig({
   projectId: "psrfe1",
   e2e: {
