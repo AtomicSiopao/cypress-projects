@@ -8,13 +8,7 @@
             "browser": "chrome",
             "browser_version": "latest",
             "os": "Windows",
-            "os_version": "11"
-        },
-        {
-            "browser": "firefox",
-            "browser_version": "latest",
-            "os": "Windows",
-            "os_version": "11"
+            "os_version": "10"
         }
     ],
     "run_settings": {
