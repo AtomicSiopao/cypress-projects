@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
-      - name: Cypress run
+      - name: Cypress Browserstack Run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
         run: pnpm browserstack-cypress run --sync #--parallels 2
 
