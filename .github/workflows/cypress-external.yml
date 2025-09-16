@@ -32,6 +32,9 @@ jobs:
       # Run Cypress tests using BrowserStack
       - name: Run Cypress on BrowserStack
         uses: browserstack/github-actions/setup-env@master
+        with:
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
 
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
