@@ -1,4 +1,4 @@
-describe('Accordions Practice', () => {
+describe('Sweet Shop - Broken Shop', () => {
     beforeEach(() => {
         cy.visit('https://commitquality.com/practice');
     });
