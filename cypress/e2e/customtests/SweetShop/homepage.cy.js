@@ -1,6 +1,21 @@
-describe('Broken Sweetshop Page', () => {
+describe('Broken Sweet Shop Page', () => {
     beforeEach(() => {
         cy.visit('https://sweetshop.netlify.app/');
+    });
+
+    it('should display the Navigation Bar', () => {
+        cy.contains('.navbar-brand', 'Sweet Shop').should('be.visible');
+        cy.contains('.navbar', 'Sweets').should('be.visible');
+        cy.contains('.navbar', 'About').should('be.visible');
+        cy.contains('.navbar', 'Login').should('be.visible');
+        cy.contains('.navbar', 'Basket').should('be.visible');
+        cy.get('img').each(($img) => {
+            cy.wrap($img)
+                .should('be.visible')
+                .and(($images) => {
+                    expect($images[0].naturalWidth, `Image ${$images.attr('src')} is broken`).to.be.greaterThan(0);
+                });
+        });
     });
 
     it('should display all product images in home page', () => {
@@ -8,36 +23,23 @@ describe('Broken Sweetshop Page', () => {
             cy.wrap($img)
                 .should('be.visible')
                 .and(($el) => {
-                    expect($el[0].naturalWidth, `Image ${$el.attr('src')} is broken`).to.be.greaterThan(0);
+                    expect($el[0].naturalWidth, `Image ${$el.attr('src')} is broken`).to.be.greaterThan(0); // checks each image if it exists using naturalWidth
                 });
         });
     });
-        it('should display all product images in Sweets page', () => {
-            //checks if all the images in the Sweets page are displayed
-            cy.get('.my-4 > .btn').click();
-            cy.get('img').each(($img) => {
-                cy.wrap($img)
-                    .should('be.visible')
-                    .and(($images) => {
-                        expect($images[0].naturalWidth, `Image ${$images.attr('src')} is broken`).to.be.greaterThan(0);
-                    });
-            });
-        });
-    it('Should check if products can be added to cart', () => {
-        //checks if all the images in the Sweets page are displayed
-        cy.get('.my-4 > .btn').click();
+
+    it('Should check if products in the homepage can be added to cart', () => {
+        //cy.get('.my-4 > .btn').click();
         cy.document().then((doc) => {
             const buttonsInPage = doc.querySelectorAll('.card > .card-footer > .btn').length;
             let displayRows = buttonsInPage / 4;
             let itemsInBasket = 0;
-            for (let x = 2; x <= displayRows + 1; x++) { // displayRows + 1 since selector always starts with 2 for some reason
-                for (let y = 1; y <= 4; y++) { // column
-                    cy.get(`:nth-child(${x}) > :nth-child(${y}) > .card > .card-footer > .btn`).click();
-                    itemsInBasket++;
-                    cy.log(`${itemsInBasket} items added in basket.`);
-                };
+            for (let y = 1; y <= 4; y++) { // column
+                cy.get(`:nth-child(${y}) > .card > .card-footer > .btn`).click();
+                itemsInBasket++;
+                cy.log(`${itemsInBasket} items added in basket.`);
             };
-            cy.contains('.badge','16');
+            cy.contains('.badge', `${itemsInBasket}`);
         });
     });
 
