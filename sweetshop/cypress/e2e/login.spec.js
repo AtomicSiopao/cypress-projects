@@ -10,6 +10,5 @@ describe('Login flow', () => {
 
   it('should log in with valid credentials', () => {
     login.login(userLogin.email, userLogin.password);
-    //nav.loginLink().should('not.exist');
   });
 });
