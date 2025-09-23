@@ -8,3 +8,4 @@ support/
 .env
 log
 *.log
+results/
