@@ -15,7 +15,9 @@
     "project_name": "cypress-projects",
     "build_name": "SweetShop Test: Cypress + BrowserStack",
     "parallels": 1,
-    "npm_dependencies": {}
+    "npm_dependencies": {
+      "cypress": "^15.0.0"
+    }
   },
   "connection_settings": {
     "local": false

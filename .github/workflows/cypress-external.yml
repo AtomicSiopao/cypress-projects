@@ -38,7 +38,7 @@ jobs:
 
       - name: Cypress Browserstack Run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
-        run: pnpm browserstack-cypress run --sync #--parallels 2
+        run: pnpm browserstack-cypress run --sync --verbose #--parallels 2
 
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
