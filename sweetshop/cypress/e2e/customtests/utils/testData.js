@@ -1,3 +1,8 @@
+export const userLogin ={
+    email: 'test@user.com',
+    password: 'qwerty'
+}
+
 export const userData = {
     firstName: 'firstName',
     lastName: 'lastName',
@@ -6,9 +11,8 @@ export const userData = {
     address2: 'Apt. 1',
     city: 'Bristol',
     country: 'United Kingdom',
-    zip: '12345',
+    zip: '12345'
 }
-
 
 export const creditCardData = {
     ccName: userData.firstName + " " + userData.lastName,
