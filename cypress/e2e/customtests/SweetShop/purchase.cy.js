@@ -29,7 +29,7 @@ describe('Purchase Sweets from Sweet Shop', () => {
                 cy.get(selector).type(value);
             };
         });
-
+        // TODO: Complete the purchase flow
     });
 
 });

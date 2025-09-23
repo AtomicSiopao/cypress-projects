@@ -24,18 +24,18 @@ describe('Broken Sweet Shop Page', () => {
         });
     });
 
-    // it('should navigate to the login page', () => {
-    //     cy.get('.navbar .nav-link').contains('Login').click();
-    //     Cypress.Promise.all([
-    //         getValue('[title="test@user.com"]', 'title'),
-    //         getValue('[title="qwerty"]', 'title')
-    //     ]).then(([email, password]) => {
-    //         cy.get('#exampleInputEmail').type(email);
-    //         cy.get('#exampleInputPassword').type(password);
+    it('should navigate to the login page', () => {
+        cy.get('.navbar .nav-link').contains('Login').click();
+        Cypress.Promise.all([
+            getValue('[title="test@user.com"]', 'title'),
+            getValue('[title="qwerty"]', 'title')
+        ]).then(([email, password]) => {
+            cy.get('#exampleInputEmail').type(email);
+            cy.get('#exampleInputPassword').type(password);
 
-    //         cy.get('.btn-primary').contains('Login').click();
-    //         cy.get('p.lead').should('contain', `Welcome back ${email}`);
-    //     });
-    // });
+            cy.get('.btn-primary').contains('Login').click();
+            cy.get('p.lead').should('contain', `Welcome back ${email}`);
+        });
+    });
 
 });

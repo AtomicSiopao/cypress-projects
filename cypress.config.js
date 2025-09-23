@@ -3,7 +3,9 @@ module.exports = defineConfig({
   projectId: "psrfe1",
   e2e: {
     "chromeWebSecurity": false,
-    specPattern: "cypress/e2e/customtests/**/*.cy.js",
+    "baseUrl": "https://sweetshop.netlify.app",
+    "video": false,
+    specPattern: "cypress/e2e/**/*.*.js",
     viewportWidth: 1280,
     viewportHeight: 720,
   },

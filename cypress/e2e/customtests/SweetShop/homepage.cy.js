@@ -4,11 +4,16 @@ describe('Broken Sweet Shop Page', () => {
     });
 
     it('should display the Navigation Bar', () => {
-        cy.contains('.navbar-brand', 'Sweet Shop').should('be.visible');
-        cy.contains('.navbar', 'Sweets').should('be.visible');
-        cy.contains('.navbar', 'About').should('be.visible');
-        cy.contains('.navbar', 'Login').should('be.visible');
-        cy.contains('.navbar', 'Basket').should('be.visible');
+        const navBar = {
+            'Sweets': '/sweets',
+            'About': '/about',
+            'Login': '/login',
+            'Basket': '/basket'
+        };
+        Object.entries(navBar).forEach(([selector, value]) => {
+            cy.get('.nav-link').contains(selector).should('be.visible').click();
+            cy.url().should('include', value);    
+        });
         cy.get('img').each(($img) => {
             cy.wrap($img)
                 .should('be.visible')
