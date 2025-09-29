@@ -8,7 +8,7 @@ class SpeedGame {
         cy.get('button[data-testid="startBtn"]').click();
     }
     endGame() {
-        cy.get('.form_btn.delete').should('be.visible').click();
+        cy.get('.form_btn.delete', { timeout: 15000 }).should('be.visible').click();
     }
 }
 module.exports = new SpeedGame();

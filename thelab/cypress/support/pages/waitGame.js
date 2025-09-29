@@ -4,7 +4,7 @@ class WaitGame {
     }
 
     startGame() {
-        cy.contains('h1', 'Wait Game').should('be.visible'); // game name
+        cy.contains('h1', 'Wait Game').should('be.visible');
         cy.get('button[data-testid="startBtn"]').click();
     }
     endGame() {
