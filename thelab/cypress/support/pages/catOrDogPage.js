@@ -1,4 +1,4 @@
-// cypress/pages/CatOrDogPage.js
+// cypress/support/pages/CatOrDogPage.js
 
 class CatOrDogPage {
     // Locators

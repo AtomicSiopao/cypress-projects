@@ -1,24 +1,28 @@
-const catShelter = require("../support/pages/catShelter");
+const addCatPage = require("../support/pages/addCatPage");
+const catShelterPage = require("../support/pages/catShelterPage");
+
 describe("Add or remove a cat in the Cat Shelter", () => {
     beforeEach(() => {
-        catShelter.visit();
+        catShelterPage.visit();
     });
 
     const cat =
     {
-        name: "Jarpild",
-        description: "Calico",
+        name: "Jopi",
+        description: "Pug",
         preference: "inside" // inside or outside
     }
 
     it("should add cat to cat shelter", () => {
-        catShelter.addCat(cat.name, cat.description, cat.preference);
-        catShelter.searchCat(cat.name);
+        catShelterPage.clickAddCat();
+        addCatPage.createCat(cat.name, cat.description, cat.preference);
+        catShelterPage.searchCat(cat.name).should('be.visible');
     });
 
     it("should remove cat from cat shelter", () => {
-        catShelter.searchCat(cat.name);
-        catShelter.removeCat(cat.name);
+        catShelterPage.searchCat(cat.name);
+        catShelterPage.removeCat(cat.name);
+        catShelterPage.searchCat(cat.name).should('not.exist');
     });
 
 });
