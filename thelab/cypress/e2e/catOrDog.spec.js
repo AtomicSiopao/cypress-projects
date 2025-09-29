@@ -1,14 +1,15 @@
-const catOrDog = require("../support/pages/catOrDog");
+// cypress/e2e/catOrDog.spec.js
+const catOrDogPage = require("../support/pages/CatOrDog");
 
 describe("Identify the animal by clicking the correct button", () => {
     beforeEach(() => {
-        catOrDog.visit();
+        catOrDogPage.visit();
     });
 
-    it("should click the correct animal button 10 times", () => {
+    it("should identify the animal and click the corresponding button 10 times", () => {
         Cypress._.times(10, () => {
-            catOrDog.generateImage();
-            catOrDog.checkImageAltText()
+            catOrDogPage.generateImage();
+            catOrDogPage.checkImageAndClick();
         });
     });
 });
