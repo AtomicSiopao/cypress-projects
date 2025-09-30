@@ -15,6 +15,9 @@ describe("Fill up the form", () => {
 
     it("should fill out the form with valid data", () => {
         formFill.saveUserToDB(credentials.firstName, credentials.lastName, credentials.email, credentials.password);
-        //formFill.saveUserToDB();
+    });
+
+    it("should check if user is recorded in the DB", () => {
+        formFill.checkIfUserIsInDB(credentials.firstName, credentials.lastName);
     });
 });

@@ -28,6 +28,10 @@ class formFillPage {
         return cy.contains('.save_message', 'Data saved to DB');
     }
 
+    get usersInDBButton(){
+        return cy.get('button.form_btn.orange')
+    }
+
     // Setters
     setfirstName(firstName) {
         this.firstName.clear().type(firstName);
@@ -40,6 +44,10 @@ class formFillPage {
     }
     setPassword(password) {
         this.password.clear().type(password);
+    }
+
+    setUserToCheck(firstName, lastName){
+        return cy.contains('td', `${firstName} ${lastName}`);
     }
 
     // Actions
@@ -64,15 +72,24 @@ class formFillPage {
         this.dataSavedToDBMessage.should('be.visible');
     }
 
-    checkErrorMessage() { // cypress cannot check HTML5 validation pop-up
-        cy.get('.btn_section > .form_btn').click();
-        cy.contains('.error', 'Please enter a valid email address.').should('be.visible');
-        cy.get('input[name="email"]').then(($el) => {
-            expect($el[0].checkValidity()).to.be.false;
-            cy.log($el[0].validationMessage);
-            expect($el[0].validationMessage).to.contain('@');
-        });
+    clickUserInDBButton(){
+        this.usersInDBButton.click();
     }
+
+    checkIfUserIsInDB(firstName, lastName){
+        this.clickUserInDBButton();
+        this.setUserToCheck(firstName, lastName).should('be.visible');
+    }
+
+    // checkErrorMessage() { // cypress cannot check HTML5 validation pop-up
+    //     cy.get('.btn_section > .form_btn').click();
+    //     cy.contains('.error', 'Please enter a valid email address.').should('be.visible');
+    //     cy.get('input[name="email"]').then(($el) => {
+    //         expect($el[0].checkValidity()).to.be.false;
+    //         cy.log($el[0].validationMessage);
+    //         expect($el[0].validationMessage).to.contain('@');
+    //     });
+    // }
 }
 
 module.exports = new formFillPage();
