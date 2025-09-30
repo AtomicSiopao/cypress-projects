@@ -28,14 +28,13 @@ describe("", () => {
         });
     });
 
-
-    // it("should not allow more than 5 items", () => {
-    //     for (let i = 0; i < maxItems + 1; i++) {
-    //         const item = `Task ${Date.now()}-${i}`;
-    //         sortedList.addToDo(item);
-    //     }
-    //     sortedList.checkToDoLength(maxItems);
-    //     sortedList.toDoLengthIsFull();
-    // });
+    it("should not allow more than 5 items", () => {
+        for (let i = 0; i < maxItems + 1; i++) {
+            const item = `Task ${Date.now()}-${i}`;
+            sortedList.addToDo(item);
+        }
+        sortedList.checkToDoLength(maxItems);
+        sortedList.toDoLengthIsFull();
+    });
 
 });
