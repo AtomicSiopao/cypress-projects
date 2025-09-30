@@ -1,4 +1,4 @@
-const formFill = require("../support/pages/formFill");
+const formFill = require("../support/pages/formFillPage");
 
 describe("Fill up the form", () => {
     beforeEach(() => {
@@ -7,14 +7,14 @@ describe("Fill up the form", () => {
 
     const credentials =
         { 
-            firstname: "Alice",
-            lastname: "Smith",
-            email: "alicesmith@aaa.com",
-            password: "Alice123"
+            firstName: "Dodong",
+            lastName: "Charing",
+            email: "dong.char@eklabu.com",
+            password: "DodongCharing"
         };
 
     it("should fill out the form with valid data", () => {
-        formFill.fillForm(credentials.firstname, credentials.lastname, credentials.email, credentials.password);
-        formFill.saveToDB();
+        formFill.saveUserToDB(credentials.firstName, credentials.lastName, credentials.email, credentials.password);
+        //formFill.saveUserToDB();
     });
 });
