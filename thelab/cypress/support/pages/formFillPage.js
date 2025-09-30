@@ -1,7 +1,7 @@
 class formFillPage {
     // Setters . Locators
     get header() {
-        return cy.contains('h1', 'Form Fill').should('be.visible');
+        return cy.contains('h1', 'Form Fill');
     }
 
     get firstName() {
@@ -33,17 +33,24 @@ class formFillPage {
     }
 
     // Setters
-    setfirstName(firstName) {
+    setFirstName(firstName) {
         this.firstName.clear().type(firstName);
+        return this;
     }
-    setlastName(lastName) {
+
+    setLastName(lastName) {
         this.lastName.clear().type(lastName);
+        return this;
     }
+
     setEmail(email) {
         this.email.clear().type(email);
+        return this;
     }
+
     setPassword(password) {
         this.password.clear().type(password);
+        return this;
     }
 
     setUserToCheck(firstName, lastName){
@@ -53,23 +60,27 @@ class formFillPage {
     // Actions
     visit() {
         cy.visit('/formFill');
+        this.header.should('be.visible');
     }
 
     fillUserForm(firstName, lastName, email, password) {
-        this.setfirstName(firstName);
-        this.setlastName(lastName);
-        this.setEmail(email);
-        this.setPassword(password);
+        this.setFirstName(firstName)
+            .setLastName(lastName)
+            .setEmail(email)
+            .setPassword(password);
+        return this;
     }
 
     submitUserForm() {
         this.saveToDBButton.click();
+        return this;
     }
 
     saveUserToDB(firstName, lastName, email, password) {
-        this.fillUserForm(firstName, lastName, email, password);
-        this.submitUserForm();
+        this.fillUserForm(firstName, lastName, email, password)
+            .submitUserForm();
         this.dataSavedToDBMessage.should('be.visible');
+        return this;
     }
 
     clickUserInDBButton(){
@@ -77,19 +88,7 @@ class formFillPage {
     }
 
     checkIfUserIsInDB(firstName, lastName){
-        this.clickUserInDBButton();
         this.setUserToCheck(firstName, lastName).should('be.visible');
     }
-
-    // checkErrorMessage() { // cypress cannot check HTML5 validation pop-up
-    //     cy.get('.btn_section > .form_btn').click();
-    //     cy.contains('.error', 'Please enter a valid email address.').should('be.visible');
-    //     cy.get('input[name="email"]').then(($el) => {
-    //         expect($el[0].checkValidity()).to.be.false;
-    //         cy.log($el[0].validationMessage);
-    //         expect($el[0].validationMessage).to.contain('@');
-    //     });
-    // }
 }
-
 module.exports = new formFillPage();
