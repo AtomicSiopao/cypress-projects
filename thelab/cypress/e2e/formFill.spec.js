@@ -6,12 +6,12 @@ describe("Fill up the form", () => {
     });
 
     const credentials =
-        { 
-            firstName: "Dodong",
-            lastName: "Charing",
-            email: "dong.char@eklabu.com",
-            password: "DodongCharing"
-        };
+    {
+        firstName: "Dodong",
+        lastName: "Charing",
+        email: "dong.char@eklabu.com",
+        password: "DodongCharing"
+    };
 
     it("should fill out the form with valid data", () => {
         formFill.saveUserToDB(
@@ -24,7 +24,7 @@ describe("Fill up the form", () => {
 
     it("should check if user is recorded in the DB", () => {
         formFill
-        .clickUserInDBButton()
-        .checkIfUserIsInDB(credentials.firstName, credentials.lastName);
+            .clickUserInDBButton()
+            .checkIfUserIsInDB(credentials.firstName, credentials.lastName);
     });
 });

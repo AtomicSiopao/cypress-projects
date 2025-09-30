@@ -28,7 +28,7 @@ class formFillPage {
         return cy.contains('.save_message', 'Data saved to DB');
     }
 
-    get usersInDBButton(){
+    get usersInDBButton() {
         return cy.get('button.form_btn.orange')
     }
 
@@ -53,7 +53,7 @@ class formFillPage {
         return this;
     }
 
-    setUserToCheck(firstName, lastName){
+    setUserToCheck(firstName, lastName) {
         return cy.contains('td', `${firstName} ${lastName}`);
     }
 
@@ -83,12 +83,14 @@ class formFillPage {
         return this;
     }
 
-    clickUserInDBButton(){
+    clickUserInDBButton() {
         this.usersInDBButton.click();
+        return this;
     }
 
-    checkIfUserIsInDB(firstName, lastName){
+    checkIfUserIsInDB(firstName, lastName) {
         this.setUserToCheck(firstName, lastName).should('be.visible');
+        return this;
     }
 }
 module.exports = new formFillPage();

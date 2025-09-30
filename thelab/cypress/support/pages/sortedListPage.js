@@ -1,35 +1,73 @@
-class sortedList {
+class sortedListPage {
+    // Getters . Locators
+
+    get header() {
+        return cy.contains('h1', 'Sorted list');
+    }
+
+    get toDoButton() {
+        return cy.get('.form_btn.add');
+    }
+
+    get toDo() {
+        return cy.get('.list_form input');
+    }
+
+    get toDoList() {
+        return cy.get('.collection');
+    }
+
+    // Setters
+
+
+    // Actions
     visit() {
         cy.visit('/sortedList');
+        this.header.should('be.visible');
     }
 
-    addItem(item) {
-        cy.wait(500);
-        cy.get('.list_form input').type(item);
-        cy.wait(500); // wait for debounce
-        cy.get('.form_btn.add').click();
-    }
-    
-    checkItemExists(item) {
-        cy.contains('.collection', item).should('exist');
-        cy.log('Item added: ' + item);
+    clickAddToDoButton() {
+        cy.wait(200); // debounce
+        this.toDoButton.click();
     }
 
-    checkToDoLength() {
-        return cy.get('.collection').then($list => {
-            const length = $list.children().length;
-            cy.log('List length: ' + length);
-            return cy.wrap(length);
+    addToDo(item) {
+        this.toDo.type(item);
+        this.clickAddToDoButton();
+    }
+
+    checkToDoList() {
+        this.toDoList.should('exist');
+        return this;
+    }
+
+    checkNewToDo(item) {
+        this.toDoList.contains(item);
+        return this;
+    }
+
+    checkToDoLength(expected) {
+        return this.toDoList.children().should('have.length.at.least', expected);
+    }
+
+    getToDoLength() {
+        return cy.get('body').then($body => {
+            if ($body.find('.collection').length) {
+                return cy.get('.collection').children().its('length');
+            } else {
+                return cy.wrap(0);
+            }
         });
     }
 
     toDoLengthIsFull() {
-        cy.get('.collection').then($list => {
+        return this.toDoList.then($list => {
             const length = $list.children().length;
-            return length >= 5;
+            expect(length).to.be.at.least(5);
+        }).then(() => {
+            cy.contains('.error', 'Your schedule is full!').should('be.visible');
         });
-        cy.contains('.error', 'Your schedule is full!').should('be.visible');
     }
 }
 
-module.exports = new sortedList();
+module.exports = new sortedListPage();
