@@ -1,14 +1,50 @@
-class SpeedGame {
-    visit() {
-        cy.visit('/speedGame');
+class SpeedGamePage {
+    // Setter . Locators
+    get header() {
+        return cy.contains('h1', 'Speed Game');
     }
 
-    startGame() {
-        cy.contains('h1', 'Speed Game').should('be.visible'); // game name
-        cy.get('button[data-testid="startBtn"]').click();
+    get startGameButton() {
+        return cy.get('button[data-testid="startBtn"]');
     }
-    endGame() {
-        cy.get('.form_btn.delete', { timeout: 15000 }).should('be.visible').click();
+    get endGameButton() {
+        return cy.get('.form_btn.delete', { timeout: 15000 });
     }
+
+    get successMessage() {
+        return cy.get('[data-testid="message"]');
+    }
+
+    get score() {
+        return cy.get('.sub_message');
+    }
+
+    // Actions
+    visit() {
+        cy.visit('/speedGame');
+        this.header.should('be.visible');
+        return this;
+    }
+
+    clickStartGameButton() {
+        this.startGameButton.click();
+        return this;
+    }
+
+    clickEndGameButton() {
+        this.endGameButton.click();
+        return this;
+    }
+
+    checkSuccessMessage() {
+        this.successMessage.should('be.visible');
+        return this;
+    }
+
+    checkScore() {
+        this.score.should('contain.text', 'Your reaction time is');
+        return this;
+    }
+
 }
-module.exports = new SpeedGame();
+module.exports = new SpeedGamePage();
