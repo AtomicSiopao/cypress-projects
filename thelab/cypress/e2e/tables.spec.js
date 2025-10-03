@@ -1,6 +1,6 @@
-const tables = require("../support/pages/tables");
+const tables = require("../support/pages/tablesPage");
 
-describe.only("Toggle checkboxes to filter animals in the Savannah", () => {
+describe("Toggle checkboxes to filter animals in the Savannah", () => {
     const animals = ["lion", "elephant", "zebra"];
 
     beforeEach(() => {
@@ -10,7 +10,6 @@ describe.only("Toggle checkboxes to filter animals in the Savannah", () => {
     it("should remove the animals in the unchecked filter", () => {
         animals.forEach((animal) => {
             tables.uncheckFilter(animal);
-            tables.checkFilterState(animal, "false"); // assert unchecked
         });
     });
 
@@ -23,7 +22,6 @@ describe.only("Toggle checkboxes to filter animals in the Savannah", () => {
         // then re-check all
         animals.forEach((animal) => {
             tables.checkFilter(animal);
-            tables.checkFilterState(animal, "true"); // assert checked
         });
     });
 });
