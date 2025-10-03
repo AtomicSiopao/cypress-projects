@@ -1,16 +1,13 @@
 /// <reference types="cypress" />
-const waitGame = require("../support/pages/waitGame");
+const waitGame = require("../support/pages/waitGamePage");
 
 describe('Do the Wait Game', () => {
   beforeEach(() => {
     waitGame.visit();
   });
 
-  it('should wait for 5 seconds before clicking the end game button', () => {
-    cy.log('Start the game');
-    waitGame.startGame();
-    cy.wait(5000); // wait for 5 seconds to simulate game play
-    cy.log('End the game');
-    waitGame.endGame();
-    });
+  it('should wait until the end button appears, then finish the game', () => {
+    waitGame.startGame();   // starts and waits until "End Game" button is ready
+    waitGame.endGame();     // clicks and verifies success message
+  });
 });
