@@ -49,7 +49,9 @@ jobs:
           fi
         env:
           ASSET: ${{ github.event.inputs.resource }}
-
+          
+      - run: mkdir -p starlines/${{ github.event.inputs.resource }}
+      
       - run: node create-starline.js ${{ github.event.inputs.resource }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
