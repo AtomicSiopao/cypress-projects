@@ -2,10 +2,9 @@ name: Generate Starline
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'README.md'
-      - '.github/workflows/starline.yml'
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -19,15 +18,17 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Generate starline image
         run: node create-starline.js --owner ${{ github.repository_owner }} --repo ${{ github.event.repository.name }} --out ./assets/starline.svg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit and push the image
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/starline.svg
-          git commit -m "Update starline"
+          git commit -m "Update starline" || echo "No changes to commit"
           git push
