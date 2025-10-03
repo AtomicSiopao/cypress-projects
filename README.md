@@ -1,9 +1,3 @@
-# AtomicSiopao [![starline](https://starlines.qoo.monster/assets/AtomicSiopao)](https://github.com/AtomicSiopao)
-
-# Cypress Project [![starline](https://starlines.qoo.monster/assets/AtomicSiopao/cypress-projects)](https://github.com/AtomicSiopao/cypress-projects)
-
----
-
 ## BrowserStack Integration
 
 [Setup Guide](https://automate.browserstack.com/qig/integrate-test-suite-step)
