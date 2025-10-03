@@ -1,19 +1,35 @@
-name: Generate Starlines
+name: Generate Starline
 
 on:
-  workflow_dispatch:
+  schedule:
+    # e.g. daily
+    - cron: '0 0 * * *'
+  push:
+    paths:
+      - 'README.md'
+      - '.github/workflows/starline.yml'
 
 jobs:
-  cypress-run:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Generate Starlines
-        uses: qoomon/starlines@main
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          commit_message: "update: starline add-on"
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate starline image
+        run: node create-starline.js --owner ${{ github.repository_owner }} --repo ${{ github.event.repository.name }} --out ./assets/starline.svg
+
+      - name: Commit and push the image
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/starline.svg
+          git commit -m "Update starline"
+          git push
