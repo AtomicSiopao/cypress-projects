@@ -1,21 +1,13 @@
-const yellowOrBlue = require("../support/pages/yellowOrBlue");
+const yellowOrBlue = require("../support/pages/yellowOrBluePage");
 
-describe("Click the correct color button", () => {
+describe("Yellow or Blue Game", () => {
     beforeEach(() => {
         yellowOrBlue.visit();
     });
 
-    it("should click the correct color button 10 times", () => {
-        Cypress._.times(10, () => {
-            cy.wrap(null).then(() => yellowOrBlue.generateColor());
-
-            cy.get('h5.color')
-                .invoke('text')
-                .then((colorText) => {
-                    const text = colorText.trim().toUpperCase();
-                    cy.get(`.${text.toLowerCase()}`).click();
-                    cy.get('p[data-testid="message"]').should('have.text', 'Success!');
-                });
-        });
+    it("should generate a color and click the correct button", () => {
+        yellowOrBlue.generateColor();
+        yellowOrBlue.chooseColor();
+        yellowOrBlue.verifySuccess();
     });
 });
