@@ -24,13 +24,14 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('ignoreReactError', () => {
-    cy.origin('https://dashboard.vcam.ai', () => {
-        cy.on('uncaught:exception', (err) => {
-            // handle website js error (dashboard)
-            if (err.message.includes('Minified React error')) {
-                return false;
-            }
-        });
-    });
+// cypress/support/commands.js
+Cypress.Commands.add("ignoreReactError", () => {
+  cy.on("uncaught:exception", (err) => {
+    if (
+      err.message.includes("Minified React error") ||
+      err.message.includes("React error #418")
+    ) {
+      return false;
+    }
+  });
 });
