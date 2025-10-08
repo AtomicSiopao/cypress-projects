@@ -30,83 +30,79 @@ class footer {
     const footerLinks = [
       {
         text: "Features",
-        url: "/features",
+        url: "https://www.vcam.ai/features",
       },
       {
         text: "Pricing",
-        url: "/pricing",
+        url: "https://www.vcam.ai/pricing",
       },
       {
         text: "Download",
-        url: "/download",
+        url: "https://www.vcam.ai/download",
       },
       {
         text: "Changelog",
-        url: "/changelog",
+        url: "https://www.vcam.ai/changelog",
       },
       {
         text: "Feedback",
         url: "https://feedback.vcam.ai",
       },
       {
-        text: "Background Editor",
-        url: "https://background.vcam.ai",
-      },
-      {
         text: "Overview",
-        url: "/use-cases",
+        url: "https://www.vcam.ai/use-cases",
       },
       {
         text: "Finance",
-        url: "/use-cases/finance",
+        url: "https://www.vcam.ai/use-cases/finance",
       },
       {
         text: "Remote Work",
-        url: "/use-cases/remote-work",
+        url: "https://www.vcam.ai/use-cases/remote-work",
       },
       {
         text: "Content Creators",
-        url: "/use-cases/content-creators",
+        url: "https://www.vcam.ai/use-cases/content-creators",
       },
       {
         text: "Education",
-        url: "/use-cases/education",
+        url: "https://www.vcam.ai/use-cases/education",
       },
       {
         text: "Telehealth",
-        url: "/use-cases/telehealth",
+        url: "https://www.vcam.ai/use-cases/telehealth",
       },
       {
         text: "About",
-        url: "/about-us",
+        url: "https://www.vcam.ai/about-us",
       },
       {
         text: "Help & Support",
-        url: "https://help.vcam.ai/en/",
+        url: "https://help.vcam.ai",
       },
       {
         text: "News & Blog",
-        url: "/blog",
+        url: "https://www.vcam.ai/blog",
       },
       {
         text: "Affiliate Program",
-        url: "https://affiliate.vcam.ai/signup",
+        url: "https://affiliate.vcam.ai",
       },
       {
         text: "Contact Sales",
-        url: "https://form.typeform.com/to/az17rhBt",
+        url: "https://www.vcam.ai/sales",
       },
       {
         text: "Terms & Conditions",
-        url: "/terms",
+        url: "https://www.vcam.ai/terms",
       },
       {
         text: "Privacy Policy",
-        url: "/privacy",
+        url: "https://www.vcam.ai/privacy",
       },
       {
         text: "Cookie Policy",
-        url: "/cookies",
+        url: "https://www.vcam.ai/cookies",
       },
     ];
     footerLinks.map(({ text, url }) => this.checkURLInLink(text, url));

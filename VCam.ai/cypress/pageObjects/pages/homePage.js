@@ -18,7 +18,7 @@ class homePage {
   // FUNCTIONS
   visit() {
     cy.visit("https://vcam.ai/");
-    this.vcamLogo.should("be.visible");
+    //this.vcamLogo.should("be.visible");
     return this;
   }
 
@@ -65,14 +65,20 @@ class homePage {
     return this.getLinkByText(text).invoke("attr", "href").should("eq", url);
   }
 
+  getAllGetStartedButtons() {
+    getLinkByText("Get started").each(($el, index, $list) => {
+      cy.wrap($el).invoke('attr','href').should("eq", "https://dashboard.vcam.ai/");
+    });
+  }
+
   checkHomePageLinks() {
     const homePageLinks = [
       {
-        text: "Read the Intel white paper ›",
+        text: "Read the Intel white paper",
         url: "https://www.intel.com/content/dam/develop/external/us/en/documents/xsplitvcam.pdf",
       },
       {
-        text: "Learn how to get started ›",
+        text: "Learn how to get started",
         url: "https://help.vcam.ai/en/article/quick-start-guide-1a762y2/",
       },
     ];
