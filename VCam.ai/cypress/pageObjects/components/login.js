@@ -1,4 +1,4 @@
-class dashboardPage {
+class Login {
   get header() {
     return cy
       .get("h1", { timeout: 10000 })
@@ -59,4 +59,4 @@ class dashboardPage {
   }
 }
 
-module.exports = new dashboardPage();
+module.exports = new Login();
