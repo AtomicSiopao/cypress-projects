@@ -1,4 +1,5 @@
-class Background {
+class BackgroundPage {
+  // ====== SELECTORS ======
   get header() {
     return cy.get("h1", { timeout: 10000 }).should("contain", "Backgrounds");
   }
@@ -8,59 +9,124 @@ class Background {
   }
 
   get setAsDefaultBackgroundCheckbox() {
-    return cy.get("input", "Set as default background");
+    return cy.contains('label', 'Set as default background').find('input');
   }
 
   get browseFilesButton() {
     return this.getButtonByText("Browse files");
   }
 
-  get uploadBackgroundButton(){
+  get uploadBackgroundButton() {
     return this.getButtonByText("Upload background");
   }
-  
-  get cancelButton(){
+
+  get cancelButton() {
     return this.getButtonByText("Cancel");
   }
 
-  setAsDefaultBG() {
-    return this.setAsDefaultBackgroundCheckbox.check();
+  get permissionsToast() {
+    return cy.get('div[data-testid="flowbite-toast"]');
   }
 
+  get numberOfBackgrounds() {
+    return cy.get("ul.flex.flex-row.gap-4.flex-wrap").children();
+  }
+
+  // ====== HELPERS ======
   getButtonByText(text) {
     return cy.contains("button", text, { timeout: 10000 });
   }
 
-  browseFiles() {
-    const filename = "C:\\Users\\AtomicSiopao\\Downloads\\aslogo.png";
-    this.browseFilesButton.selectFile(filename, { action: 'drag-drop' });
+  logCount(label, count) {
+    cy.log(`${label}: ${count}`);
+  }
+
+  // ====== ACTIONS ======
+  clickAddBackgroundButton() {
+    this.addBackgroundButton.click();
+    return this;
+  }
+
+  setAsDefaultBG() {
+    this.setAsDefaultBackgroundCheckbox.check({ force: true });
+    return this;
+  }
+
+  uploadFile(filePath) {
+    this.browseFilesButton.selectFile(filePath, { action: "drag-drop" });
     this.uploadBackgroundButton.click();
     return this;
   }
 
   uploadAnImage() {
     this.getButtonByText("Upload an image").click();
-    this.browseFiles();
+    this.uploadFile("C:\\Users\\AtomicSiopao\\Downloads\\aslogo.png");
     return this;
   }
 
   uploadAVideo() {
-    return this.getButtonByText("Upload a Video");
+    this.getButtonByText("Upload a Video").click();
+    this.uploadFile("C:\\Users\\AtomicSiopao\\Downloads\\muhehehe.mp4");
+    return this;
   }
 
   stockPhotoByUnsplash() {
     return this.getButtonByText("Stock Photo by Unsplash");
   }
 
-  clickAddBackgroundButton() {
-    return this.addBackgroundButton.click();
-  }
+  // FLOWS
   addBackgroundByImageUpload() {
-    this.clickAddBackgroundButton();
-    this.uploadAnImage();
+    this.numberOfBackgrounds.its("length").then((beforeCount) => {
+      this.logCount("Before image upload", beforeCount);
+
+      this.clickAddBackgroundButton();
+      this.uploadAnImage();
+      cy.wait(3000);
+      this.numberOfBackgrounds
+        .its("length")
+        .should("be.greaterThan", beforeCount)
+        .then((afterCount) => {
+          this.logCount("After image upload", afterCount);
+        });
+    });
   }
-  addBackgroundByVideoUpload() {}
-  addBackgroundByStockPhoto() {}
+
+  addBackgroundByVideoUpload() {
+    this.numberOfBackgrounds.its("length").then((beforeCount) => {
+      this.logCount("Before video upload", beforeCount);
+
+      this.clickAddBackgroundButton();
+      this.uploadAVideo();
+
+      // Wait for upload completion or use assertion-based wait
+      cy.wait(3000);
+
+      this.numberOfBackgrounds
+        .its("length")
+        .should("be.greaterThan", beforeCount)
+        .then((afterCount) => {
+          this.logCount("After video upload", afterCount);
+        });
+    });
+  }
+
+  addBackgroundByStockPhoto() {
+    this.numberOfBackgrounds.its("length").then((beforeCount) => {
+      this.logCount("Before stock photo", beforeCount);
+
+      this.clickAddBackgroundButton();
+      this.stockPhotoByUnsplash().click();
+
+      cy.wait(3000);
+
+      this.numberOfBackgrounds
+        .its("length")
+        .should("be.greaterThan", beforeCount)
+        .then((afterCount) => {
+          this.logCount("After stock photo", afterCount);
+        });
+    });
+  }
 }
 
-module.exports = new Background();
+module.exports = new BackgroundPage();

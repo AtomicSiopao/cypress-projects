@@ -1,6 +1,6 @@
 const dashboard = require("../pageObjects/pages/dashboardPage");
 const login = require("../pageObjects/components/login");
-const background = require("../pageObjects/components/background")
+const background = require("../pageObjects/components/background");
 
 describe("VCam.ai Dashboard", () => {
   beforeEach(() => {
@@ -24,10 +24,25 @@ describe("VCam.ai Dashboard", () => {
   //   dashboard.goToSettings();
   // });
 
-    it("Should check all Background Page functionality", () => {
+  // it("Should go to the Backgrounds page and upload image file as background ", () => {
+  //   login.login();
+  //   cy.ignoreReactError();
+  //   dashboard.goToBackgrounds();
+  //   background.addBackgroundByImageUpload();
+  // });
+
+  it("Should go to the Backgrounds page and upload image file as background ", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToBackgrounds();
-    background.addBackgroundByImageUpload();
+    background.addBackgroundByImageUpload()
+    //background.addBackgroundByVideoUpload();
+  });
+
+    it("Should go to the Backgrounds page and upload video file as background ", () => {
+    login.login();
+    cy.ignoreReactError();
+    dashboard.goToBackgrounds();
+    background.addBackgroundByVideoUpload();
   });
 });
