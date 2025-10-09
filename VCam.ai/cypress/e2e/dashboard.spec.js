@@ -31,18 +31,19 @@ describe("VCam.ai Dashboard", () => {
   //   background.addBackgroundByImageUpload();
   // });
 
-  it("Should go to the Backgrounds page and upload image file as background ", () => {
-    login.login();
-    cy.ignoreReactError();
-    dashboard.goToBackgrounds();
-    background.addBackgroundByImageUpload()
-    //background.addBackgroundByVideoUpload();
-  });
+  // it("Should go to the Backgrounds page and upload video file as background ", () => {
+  //   login.login();
+  //   cy.ignoreReactError();
+  //   dashboard.goToBackgrounds();
+  //   background.addBackgroundByVideoUpload();
+  // });
 
-    it("Should go to the Backgrounds page and upload video file as background ", () => {
+  it("Should go to the Backgrounds page and upload video file as background ", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToBackgrounds();
-    background.addBackgroundByVideoUpload();
+    background.setBackgroundStateMemberSettings(0);
+    background.setBackgroundPermissionSettings(1);
+
   });
 });

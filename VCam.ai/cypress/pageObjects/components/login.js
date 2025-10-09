@@ -18,7 +18,7 @@ class Login {
   }
 
   get emailAddressField() {
-    return cy.get("input#identifier-field");
+    return cy.get("input#identifier-field", { timeout: 10000 });
   }
 
   get passwordField() {

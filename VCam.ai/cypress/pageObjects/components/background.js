@@ -9,7 +9,7 @@ class BackgroundPage {
   }
 
   get setAsDefaultBackgroundCheckbox() {
-    return cy.contains('label', 'Set as default background').find('input');
+    return cy.contains("label", "Set as default background").find("input");
   }
 
   get browseFilesButton() {
@@ -30,6 +30,14 @@ class BackgroundPage {
 
   get numberOfBackgrounds() {
     return cy.get("ul.flex.flex-row.gap-4.flex-wrap").children();
+  }
+
+  get unsplashList() {
+    return cy.get("div.flex.flex-col.gap-1", { timeout: 5000 });
+  }
+
+  get saveBackgroundsButton() {
+    return this.getButtonByText("Save backgrounds");
   }
 
   // ====== HELPERS ======
@@ -116,6 +124,9 @@ class BackgroundPage {
 
       this.clickAddBackgroundButton();
       this.stockPhotoByUnsplash().click();
+      cy.wait(2000);
+      this.unsplashList.children().first().click();
+      this.saveBackgroundsButton.click();
 
       cy.wait(3000);
 
@@ -126,6 +137,32 @@ class BackgroundPage {
           this.logCount("After stock photo", afterCount);
         });
     });
+  }
+
+  setBackgroundStateMemberSettings(state) {
+    cy.get('button[role="switch"]')
+      .eq(0)
+      .then(($btn) => {
+        const isChecked = $btn.attr("aria-checked") === "true";
+        const shouldBeChecked = state === 1;
+
+        if (isChecked !== shouldBeChecked) {
+          cy.wrap($btn).click();
+        }
+      });
+  }
+
+  setBackgroundPermissionSettings(state) {
+    cy.get('button[role="switch"]')
+      .eq(1)
+      .then(($btn) => {
+        const isChecked = $btn.attr("aria-checked") === "true";
+        const shouldBeChecked = state === 1;
+
+        if (isChecked !== shouldBeChecked) {
+          cy.wrap($btn).click();
+        }
+      });
   }
 }
 
