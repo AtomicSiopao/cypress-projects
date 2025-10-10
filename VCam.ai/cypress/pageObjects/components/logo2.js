@@ -1,23 +1,23 @@
-class BackgroundPage {
+class LogoPage {
   // ====== SELECTORS ======
   get header() {
-    return cy.get("h1", { timeout: 10000 }).should("contain", "Backgrounds");
+    return cy.get("h1", { timeout: 10000 }).should("contain", "Logos");
   }
 
-  get addBackgroundButton() {
-    return cy.getButtonByText("Add background");
+  get addLogoButton() {
+    return cy.getButtonByText("Add logo");
   }
 
-  get setAsDefaultBackgroundCheckbox() {
-    return cy.contains("label", "Set as default background").find("input");
+  get setAsDefaultLogoCheckbox() {
+    return cy.contains("label", "Set as default logo").find("input");
   }
 
   get browseFilesButton() {
     return cy.getButtonByText("Browse files");
   }
 
-  get uploadBackgroundButton() {
-    return cy.getButtonByText("Upload background");
+  get uploadLogoButton() {
+    return cy.getButtonByText("Upload logo");
   }
 
   get cancelButton() {
@@ -28,18 +28,14 @@ class BackgroundPage {
     return cy.get('div[data-testid="flowbite-toast"]');
   }
 
-  get numberOfBackgrounds() {
+  get numberOfLogos() {
     return cy
       .get("ul.flex.flex-row.gap-4.flex-wrap")
       .children({ timeout: 10000 });
   }
 
-  get unsplashList() {
-    return cy.get("div.flex.flex-col.gap-1", { timeout: 5000 });
-  }
-
-  get saveBackgroundsButton() {
-    return cy.getButtonByText("Save backgrounds");
+  get saveLogosButton() {
+    return cy.getButtonByText("Save Logos");
   }
 
   // ====== HELPERS ======
@@ -48,7 +44,7 @@ class BackgroundPage {
   }
 
   waitForUploadCompletion(beforeCount) {
-    return this.numberOfBackgrounds
+    return this.numberOfLogos
       .should("have.length.greaterThan", beforeCount)
       .then((afterCount) => {
         cy.wait(5000);
@@ -76,19 +72,19 @@ class BackgroundPage {
   }
 
   // ====== ACTIONS ======
-  clickAddBackgroundButton() {
-    this.addBackgroundButton.click();
+  clickAddLogoButton() {
+    this.addLogoButton.click();
     return this;
   }
 
-  setAsDefaultBG() {
-    this.setAsDefaultBackgroundCheckbox.check({ force: true });
+  setAsDefaultLogo() {
+    this.setAsDefaultLogoCheckbox.check({ force: true });
     return this;
   }
 
   uploadFile(filePath) {
     this.browseFilesButton.selectFile(filePath, { action: "drag-drop" });
-    this.uploadBackgroundButton.click();
+    this.uploadLogoButton.click();
     return this;
   }
 
@@ -108,57 +104,38 @@ class BackgroundPage {
 
   // ====== FLOWS ======
   /**
-   * Adds background via image upload and verifies increment
+   * Adds logo via image upload and verifies increment
    */
-  addBackgroundByImageUpload() {
-    return this.numberOfBackgrounds.its("length").then((beforeCount) => {
+  addLogoByImageUpload() {
+    return this.numberOfLogos.its("length").then((beforeCount) => {
       this.logCount("Before image upload", beforeCount);
-
-      this.clickAddBackgroundButton();
+      this.clickAddLogoButton();
       this.uploadAnImage();
 
+      cy.wait(7000);
+
       return this.waitForUploadCompletion(beforeCount);
     });
   }
 
   /**
-   * Adds background via video upload and verifies increment
+   * Adds logo via video upload and verifies increment
    */
-  addBackgroundByVideoUpload() {
-    return this.numberOfBackgrounds.its("length").then((beforeCount) => {
+  addLogoByVideoUpload() {
+    return this.numberOfLogos.its("length").then((beforeCount) => {
       this.logCount("Before video upload", beforeCount);
 
-      this.clickAddBackgroundButton();
+      this.clickAddLogoButton();
       this.uploadAVideo();
+      cy.wait(5000);
 
       return this.waitForUploadCompletion(beforeCount);
     });
   }
 
-  /**
-   * Adds background using Unsplash stock photo and verifies increment
-   */
-  addBackgroundByStockPhoto() {
-    return this.numberOfBackgrounds.its("length").then((beforeCount) => {
-      this.logCount("Before stock photo", beforeCount);
-
-      this.clickAddBackgroundButton();
-      this.clickStockPhotoByUnsplash().click();
-
-      this.unsplashList.should("exist").children().first().click();
-      this.saveBackgroundsButton.click();
-
-      return this.waitForUploadCompletion(beforeCount);
-    });
-  }
-
-  setBackgroundStateMemberSettings(state) {
+  setLogoPermissionSettings(state) {
     this.toggleSwitch(0, state);
-  }
-
-  setBackgroundPermissionSettings(state) {
-    this.toggleSwitch(1, state);
   }
 }
 
-module.exports = new BackgroundPage();
+module.exports = new LogoPage();

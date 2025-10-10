@@ -35,3 +35,19 @@ Cypress.Commands.add("ignoreReactError", () => {
     }
   });
 });
+
+Cypress.Commands.add("getButtonByText", (text) => {
+  return cy.contains("button", text, { timeout: 10000 });
+});
+
+Cypress.Commands.add("exists", (selector) => {
+  return cy.get("body").then(($body) => $body.find(selector).length > 0);
+});
+
+Cypress.Commands.add("textExists", (selector, text) => {
+  return cy.get("body").then(($body) => {
+    Array.from($body.find(selector)).find(
+      (el) => el.textContent.trim() === text
+    );
+  });
+});
