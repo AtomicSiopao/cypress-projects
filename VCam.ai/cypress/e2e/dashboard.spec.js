@@ -1,6 +1,7 @@
-const dashboard = require("../pageObjects/pages/dashboardPage");
 const login = require("../pageObjects/components/login");
+const dashboard = require("../pageObjects/pages/dashboardPage");
 const background = require("../pageObjects/components/background");
+const logo = require("../pageObjects/components/logo");
 
 describe("VCam.ai Dashboard", () => {
   beforeEach(() => {
@@ -45,6 +46,20 @@ describe("VCam.ai Dashboard", () => {
     background.addBackgroundByStockPhoto();
     background.setBackgroundStateMemberSettings(1);
     background.setBackgroundPermissionSettings(0);
+  });
 
+  it("Should go to the Logos page and upload image file as logo ", () => {
+    login.login();
+    cy.ignoreReactError();
+    dashboard.goToLogos();
+    logo.addLogoByImageUpload();
+  });
+
+  it("Should go to the Logos page and upload video file as logo ", () => {
+    login.login();
+    cy.ignoreReactError();
+    dashboard.goToLogos();
+    logo.addLogoByVideoUpload();
+    logo.setLogoPermissionSettings(1);
   });
 });

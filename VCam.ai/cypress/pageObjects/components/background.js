@@ -29,9 +29,11 @@ class BackgroundPage {
   }
 
   get numberOfBackgrounds() {
-    return cy
-      .get("ul.flex.flex-row.gap-4.flex-wrap")
-      .children({ timeout: 10000 });
+    return cy.get("body").then(($body) => {
+      const $ul = $body.find("ul.flex.flex-row.gap-4.flex-wrap");
+      const count = $ul.length > 0 ? $ul.children().length : 0;
+      return cy.wrap(count);
+    });
   }
 
   get unsplashList() {
@@ -48,12 +50,24 @@ class BackgroundPage {
   }
 
   waitForUploadCompletion(beforeCount) {
-    return this.numberOfBackgrounds
-      .should("have.length.greaterThan", beforeCount)
-      .then((afterCount) => {
-        cy.wait(5000);
-        this.logCount("After upload", afterCount);
+    const checkUntilIncreased = (retries = 10) => {
+      return this.numberOfBackgrounds.then((afterCount) => {
+        cy.log(`Current: ${afterCount}, Before: ${beforeCount}`);
+
+        if (afterCount > beforeCount) {
+          return cy.wrap(afterCount);
+        } else if (retries > 0) {
+          cy.wait(1000);
+          return cy.wrap(null).then(() => checkUntilIncreased(retries - 1)); // 👈 safe chaining
+        } else {
+          throw new Error("Background count did not increase");
+        }
       });
+    };
+
+    return checkUntilIncreased().then((afterCount) => {
+      this.logCount("After upload", afterCount);
+    });
   }
 
   toggleSwitch(index, expectedState) {
@@ -111,11 +125,13 @@ class BackgroundPage {
    * Adds background via image upload and verifies increment
    */
   addBackgroundByImageUpload() {
-    return this.numberOfBackgrounds.its("length").then((beforeCount) => {
+    return this.numberOfBackgrounds.then((beforeCount) => {
       this.logCount("Before image upload", beforeCount);
 
       this.clickAddBackgroundButton();
       this.uploadAnImage();
+
+      cy.wait(7000);
 
       return this.waitForUploadCompletion(beforeCount);
     });
@@ -125,11 +141,12 @@ class BackgroundPage {
    * Adds background via video upload and verifies increment
    */
   addBackgroundByVideoUpload() {
-    return this.numberOfBackgrounds.its("length").then((beforeCount) => {
+    return this.numberOfBackgrounds.then((beforeCount) => {
       this.logCount("Before video upload", beforeCount);
 
       this.clickAddBackgroundButton();
       this.uploadAVideo();
+      cy.wait(7000);
 
       return this.waitForUploadCompletion(beforeCount);
     });
@@ -139,15 +156,14 @@ class BackgroundPage {
    * Adds background using Unsplash stock photo and verifies increment
    */
   addBackgroundByStockPhoto() {
-    return this.numberOfBackgrounds.its("length").then((beforeCount) => {
-      this.logCount("Before stock photo", beforeCount);
-
+    return this.numberOfBackgrounds.then((beforeCount) => {
+      this.logCount("Before stock photo upload", beforeCount);
       this.clickAddBackgroundButton();
-      this.clickStockPhotoByUnsplash().click();
 
+      this.clickStockPhotoByUnsplash().click();
       this.unsplashList.should("exist").children().first().click();
       this.saveBackgroundsButton.click();
-
+      cy.wait(7000);
       return this.waitForUploadCompletion(beforeCount);
     });
   }

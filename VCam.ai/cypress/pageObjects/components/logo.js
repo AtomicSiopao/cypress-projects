@@ -28,12 +28,16 @@ class LogoPage {
     return cy.get('div[data-testid="flowbite-toast"]');
   }
 
-  get currentLogoList() {
-    const selector = "ul.flex.flex-row.gap-4.flex-wrap";
+  get numberOfLogos() {
+    return cy.get("body").then(($body) => {
+      const $ul = $body.find("ul.flex.flex-row.gap-4.flex-wrap");
+      const count = $ul.length > 0 ? $ul.children().length : 0;
+      return cy.wrap(count);
+    });
+  }
 
-    return cy
-      .exists(selector)
-      .then((exists) => (exists ? cy.get(selector) : cy.wrap(0)));
+  get saveLogosButton() {
+    return cy.getButtonByText("Save Logos");
   }
 
   // ====== HELPERS ======
@@ -42,15 +46,23 @@ class LogoPage {
   }
 
   waitForUploadCompletion(beforeCount) {
-    this.currentLogoList.should("have.length.greaterThan", beforeCount).then(($el) => {
-      const afterCount = $el ? $el.children().its("length") : 0;
+    const checkUntilIncreased = (retries = 10) => {
+      return this.numberOfLogos.then((afterCount) => {
+        cy.log(`Current: ${afterCount}, Before: ${beforeCount}`);
+
+        if (afterCount > beforeCount) {
+          return cy.wrap(afterCount);
+        } else if (retries > 0) {
+          cy.wait(1000);
+          return cy.wrap(null).then(() => checkUntilIncreased(retries - 1)); // 👈 safe chaining
+        } else {
+          throw new Error("Logo count did not increase");
+        }
+      });
+    };
+
+    return checkUntilIncreased().then((afterCount) => {
       this.logCount("After upload", afterCount);
-      // return this.currentLogoList
-      //   .should("have.length.greaterThan", beforeCount)
-      //   .then((afterCount) => {
-      //     cy.wait(5000);
-      //     this.logCount("After upload", afterCount);
-      //   });
     });
   }
 
@@ -79,7 +91,7 @@ class LogoPage {
     return this;
   }
 
-  setAsDefaultBG() {
+  setAsDefaultLogo() {
     this.setAsDefaultLogoCheckbox.check({ force: true });
     return this;
   }
@@ -100,29 +112,39 @@ class LogoPage {
     return this.uploadFile("cypress/fixtures/muhehehe.mp4");
   }
 
+  clickStockPhotoByUnsplash() {
+    return cy.getButtonByText("Stock Photo by Unsplash");
+  }
+
   // ====== FLOWS ======
+  /**
+   * Adds logo via image upload and verifies increment
+   */
+
   addLogoByImageUpload() {
-    this.currentLogoList.then(($el) => {
-      const beforeCount = $el ? $el.children().its("length") : 0;
+    return this.numberOfLogos.then((beforeCount) => {
       this.logCount("Before image upload", beforeCount);
 
       this.clickAddLogoButton();
       this.uploadAnImage();
-      cy.wait(5000);
-      this.waitForUploadCompletion(beforeCount);
-      return this.logCount("Afterimage upload", beforeCount);
+
+      cy.wait(7000);
+
+      return this.waitForUploadCompletion(beforeCount);
     });
   }
 
+  /**
+   * Adds logo via video upload and verifies increment
+   */
   addLogoByVideoUpload() {
-    this.currentLogoList.then(($el) => {
-      const beforeCount = $el ? $el.children().its("length") : 0;
-
-      this.logCount("Before image upload", beforeCount);
+    return this.numberOfLogos.then((beforeCount) => {
+      this.logCount("Before video upload", beforeCount);
 
       this.clickAddLogoButton();
       this.uploadAVideo();
-      cy.wait(5000);
+      cy.wait(7000);
+
       return this.waitForUploadCompletion(beforeCount);
     });
   }
