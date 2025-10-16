@@ -1,10 +1,9 @@
-class nameTagPage {
+class NameTagPage {
   get header() {
     return cy.get("h1", { timeout: 10000 }).should("contain", "Name Tags");
   }
 
   get nameTagDesigns() {
-    //return cy.get('ul.flex.flex-row.gap-4');
     return cy.get("div.relative.group.aspect-video.w-64.h-36.rounded-md");
   }
 
@@ -86,4 +85,4 @@ class nameTagPage {
   }
 }
 
-module.exports = new nameTagPage();
+module.exports = new NameTagPage();

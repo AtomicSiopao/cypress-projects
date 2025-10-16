@@ -28,12 +28,26 @@ class BackgroundPage {
     return cy.get('div[data-testid="flowbite-toast"]');
   }
 
-  get numberOfBackgrounds() {
+  get backgrounds() {
+    return cy.get("ul.flex.flex-row.gap-4.flex-wrap");
+  }
+
+  get backgroundsList() {
     return cy.get("body").then(($body) => {
       const $ul = $body.find("ul.flex.flex-row.gap-4.flex-wrap");
       const count = $ul.length > 0 ? $ul.children().length : 0;
       return cy.wrap(count);
     });
+  }
+
+  get backgroundCheckbox() {
+    return cy.get(
+      "input.h-4.w-4.appearance-none.rounded.border.border-gray-300"
+    );
+  }
+
+  get backgroundDropdown() {
+    return cy.get("button.flex.items-center");
   }
 
   get unsplashList() {
@@ -44,6 +58,25 @@ class BackgroundPage {
     return cy.getButtonByText("Save backgrounds");
   }
 
+  get backgroundDropdownButton() {
+    return cy.get("button.flex.items-center");
+  }
+
+  get setAsDefaultBackgroundButton() {
+    return cy.getButtonByText("Set as default background");
+  }
+  get editBackgroundButton() {
+    return cy.getButtonByText("Edit background");
+  }
+
+  get deleteBackgroundButton() {
+    return cy.getButtonByText("Delete Background");
+  }
+
+  get confirmDeleteBackgroundButton() {
+    return cy.getButtonByText("Delete Background");
+  }
+
   // ====== HELPERS ======
   logCount(label, count) {
     cy.log(`${label}: ${count}`);
@@ -51,7 +84,7 @@ class BackgroundPage {
 
   waitForUploadCompletion(beforeCount) {
     const checkUntilIncreased = (retries = 10) => {
-      return this.numberOfBackgrounds.then((afterCount) => {
+      return this.backgroundsList.then((afterCount) => {
         cy.log(`Current: ${afterCount}, Before: ${beforeCount}`);
 
         if (afterCount > beforeCount) {
@@ -120,12 +153,40 @@ class BackgroundPage {
     return cy.getButtonByText("Stock Photo by Unsplash");
   }
 
+  deleteBackground() {
+    // Get all background items
+    cy.get("ul.flex.flex-row.gap-4.flex-wrap > li").then(($items) => {
+      const count = $items.length;
+
+      if (count === 0) {
+        cy.log("⚠️ No backgrounds found to delete");
+        return;
+      }
+
+      // Hover and check each background one by one
+      cy.wrap($items).each(($item) => {
+        cy.wrap($item)
+          .realHover()
+          .find('input[type="checkbox"]')
+          .check({ force: true });
+      });
+
+      // Determine which delete button text to click
+      const buttonText =
+        count === 1 ? "Delete Background" : `Delete ${count} Backgrounds`;
+
+      cy.getButtonByText(buttonText).click();
+      cy.wait(2000);
+      cy.getButtonByText('Cancel').siblings('button').click();
+    });
+  }
+
   // ====== FLOWS ======
   /**
-   * Adds background via image upload and verifies increment
+   * Adds background via image upload and verifies that new bg is counted
    */
   addBackgroundByImageUpload() {
-    return this.numberOfBackgrounds.then((beforeCount) => {
+    return this.backgroundsList.then((beforeCount) => {
       this.logCount("Before image upload", beforeCount);
 
       this.clickAddBackgroundButton();
@@ -138,10 +199,10 @@ class BackgroundPage {
   }
 
   /**
-   * Adds background via video upload and verifies increment
+   * Adds background via video upload and verifies that new bg is counted
    */
   addBackgroundByVideoUpload() {
-    return this.numberOfBackgrounds.then((beforeCount) => {
+    return this.backgroundsList.then((beforeCount) => {
       this.logCount("Before video upload", beforeCount);
 
       this.clickAddBackgroundButton();
@@ -153,10 +214,10 @@ class BackgroundPage {
   }
 
   /**
-   * Adds background using Unsplash stock photo and verifies increment
+   * Adds background using Unsplash stock photo and verifies that new bg is counted
    */
   addBackgroundByStockPhoto() {
-    return this.numberOfBackgrounds.then((beforeCount) => {
+    return this.backgroundsList.then((beforeCount) => {
       this.logCount("Before stock photo upload", beforeCount);
       this.clickAddBackgroundButton();
 
