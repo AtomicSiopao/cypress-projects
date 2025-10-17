@@ -34,7 +34,7 @@ describe("VCam.ai Dashboard", () => {
     cy.ignoreReactError();
     dashboard.goToBackgrounds();
     background.addBackgroundByImageUpload();
-    background.deleteBackground();
+    background.deleteBackground(); // cleanup
   });
 
   it("Should go to the Backgrounds page and upload video file as background ", () => {
@@ -42,6 +42,7 @@ describe("VCam.ai Dashboard", () => {
     cy.ignoreReactError();
     dashboard.goToBackgrounds();
     background.addBackgroundByVideoUpload();
+    background.deleteBackground(); // cleanup
   });
 
   it("Should go to the Backgrounds page and select a stock photo as background ", () => {
@@ -51,15 +52,16 @@ describe("VCam.ai Dashboard", () => {
     background.addBackgroundByStockPhoto();
     background.setBackgroundStateMemberSettings(1);
     background.setBackgroundPermissionSettings(0);
+    background.deleteBackground(); // cleanup
   });
 
   // LOGOS
-  it.only("Should go to the Logos page and upload image file as logo ", () => {
+  it("Should go to the Logos page and upload image file as logo ", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToLogos();
     logo.addLogoByImageUpload();
-    logo.deleteLogo();
+    logo.deleteLogo(); // cleanup
   });
 
   it("Should go to the Logos page and upload video file as logo ", () => {
@@ -68,6 +70,7 @@ describe("VCam.ai Dashboard", () => {
     dashboard.goToLogos();
     logo.addLogoByVideoUpload();
     logo.setLogoPermissionSettings(1);
+    logo.deleteLogo(); // cleanup
   });
 
   // NAME TAGS
@@ -75,11 +78,11 @@ describe("VCam.ai Dashboard", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToNameTags();
-    //nametag.selectNameTagDesign(2);
-    //nametag.setNameTag("KopiBoi", "Resident Sleeper");
-    // nametag.allowNameTagsInApp(0); // 1 to enable
-    // nametag.allowMembersToToggleNameTag(0);
-    // nametag.allowMembersToSetDetails(0);
-    // nametag.allowMembersToSetDesign(0);
+    nametag.selectNameTagDesign(2);
+    nametag.setNameTag("KopiBoi", "Resident Sleeper");
+    nametag.allowNameTagsInApp(0); // 1 to enable
+    nametag.allowMembersToToggleNameTag(0);
+    nametag.allowMembersToSetDetails(0);
+    nametag.allowMembersToSetDesign(0);
   });
 });
