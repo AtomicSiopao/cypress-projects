@@ -171,13 +171,11 @@ class BackgroundPage {
           .check({ force: true });
       });
 
-      // Determine which delete button text to click
       const buttonText =
         count === 1 ? "Delete Background" : `Delete ${count} Backgrounds`;
 
       cy.getButtonByText(buttonText).click();
-      cy.wait(2000);
-      cy.getButtonByText('Cancel').siblings('button').click();
+      this.cancelButton.siblings('button').click();
     });
   }
 

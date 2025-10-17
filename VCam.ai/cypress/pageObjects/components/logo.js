@@ -116,6 +116,32 @@ class LogoPage {
     return cy.getButtonByText("Stock Photo by Unsplash");
   }
 
+  deleteLogo() {
+    // Get all logo items
+    cy.get("ul.flex.flex-row.gap-4.flex-wrap > li").then(($items) => {
+      const count = $items.length;
+
+      if (count === 0) {
+        cy.log("⚠️ No logo found to delete");
+        return;
+      }
+
+      // Hover and check each logo one by one
+      cy.wrap($items).each(($item) => {
+        cy.wrap($item)
+          .realHover()
+          .find('input[type="checkbox"]')
+          .check({ force: true });
+      });
+
+      const buttonText =
+        count === 1 ? "Delete Logo" : `Delete ${count} Logos`;
+
+      cy.getButtonByText(buttonText).click();
+      this.cancelButton.siblings('button').click();
+    });
+  }
+
   // ====== FLOWS ======
   /**
    * Adds logo via image upload and verifies increment

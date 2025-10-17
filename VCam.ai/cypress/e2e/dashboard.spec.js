@@ -29,7 +29,7 @@ describe("VCam.ai Dashboard", () => {
   });
 
   // BACKGROUNDS
-  it.only("Should go to the Backgrounds page and upload image file as background ", () => {
+  it("Should go to the Backgrounds page and upload image file as background then remove all backgrounds", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToBackgrounds();
@@ -54,11 +54,12 @@ describe("VCam.ai Dashboard", () => {
   });
 
   // LOGOS
-  it("Should go to the Logos page and upload image file as logo ", () => {
+  it.only("Should go to the Logos page and upload image file as logo ", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToLogos();
     logo.addLogoByImageUpload();
+    logo.deleteLogo();
   });
 
   it("Should go to the Logos page and upload video file as logo ", () => {
