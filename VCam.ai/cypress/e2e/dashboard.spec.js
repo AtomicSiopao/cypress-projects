@@ -9,7 +9,7 @@ describe("VCam.ai Dashboard", () => {
     dashboard.visit();
   });
 
-  // LOGIN
+  //LOGIN
   it("Should login to VCam.ai Dashboard using valid credentials", () => {
     login.login();
   });
@@ -74,7 +74,7 @@ describe("VCam.ai Dashboard", () => {
   });
 
   // NAME TAGS
-  it("Should login to VCam.ai Dashboard using valid credentials", () => {
+  it.only("Should login to VCam.ai Dashboard using valid credentials", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToNameTags();
@@ -84,5 +84,6 @@ describe("VCam.ai Dashboard", () => {
     nametag.allowMembersToToggleNameTag(0);
     nametag.allowMembersToSetDetails(0);
     nametag.allowMembersToSetDesign(0);
+    nametag.selectNameTagDesign(0); //Cleanup. Set to default again.
   });
 });
