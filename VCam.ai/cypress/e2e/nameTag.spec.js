@@ -1,5 +1,6 @@
 const login = require("../pageObjects/components/login");
-const nametag = require("../pageObjects/components/nametag");
+//const team = require("../pageObjects/components/team");
+const settings = require("../pageObjects/components/settings");
 const dashboard = require("../pageObjects/pages/dashboardPage");
 
 describe("VCam.ai Dashboard", () => {
@@ -7,15 +8,26 @@ describe("VCam.ai Dashboard", () => {
     dashboard.visit();
   });
 
+  // it("Should login to VCam.ai Dashboard using valid credentials", () => {
+  //   const emails = [
+  //     "test@test.com",
+  //     "test2@test.com",
+  //     "test3@test.com",
+  //     "test4@test.com",
+  //     "test5@test.com",
+  //   ];
+  //   login.login();
+  //   cy.ignoreReactError();
+  //   dashboard.goToTeam();
+  //   team.inviteUsers(emails, "Admin");
+  // });
+
   it("Should login to VCam.ai Dashboard using valid credentials", () => {
     login.login();
     cy.ignoreReactError();
-    dashboard.goToNameTags();
-    //nametag.selectNameTagDesign(2);
-    nametag.setNameTag("KopiBoi", "Resident Sleeper");
-    // nametag.allowNameTagsInApp(0); // 1 to enable
-    // nametag.allowMembersToToggleNameTag(0);
-    // nametag.allowMembersToSetDetails(0);
-    // nametag.allowMembersToSetDesign(0);
+    dashboard.goToSettings();
+    settings.renameWorkspace("Workspace ni Kopi");
+    settings.leaveWorkspace();
   });
 });
+

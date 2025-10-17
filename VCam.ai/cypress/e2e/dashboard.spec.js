@@ -74,7 +74,7 @@ describe("VCam.ai Dashboard", () => {
   });
 
   // NAME TAGS
-  it("Should login to VCam.ai Dashboard using valid credentials", () => {
+  it("Should go to Name Tags and setup a Name Tag", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToNameTags();
@@ -85,5 +85,26 @@ describe("VCam.ai Dashboard", () => {
     nametag.allowMembersToSetDetails(0);
     nametag.allowMembersToSetDesign(0);
     nametag.selectNameTagDesign(0); //Cleanup. Set to default again.
+  });
+
+  it("Should go to Settings and set new workspace name", () => {
+    login.login();
+    cy.ignoreReactError();
+    dashboard.goToSettings();
+    settings.renameWorkspace("Workspace ni Kopi");
+  });
+
+  it("Should go to Settings and leave workspace if account has more than 1 workspace", () => {
+    login.login();
+    cy.ignoreReactError();
+    dashboard.goToSettings();
+    settings.leaveWorkspace();
+  });
+
+  it("Should go to Settings set delete workspace if account has more than 1 workspace", () => {
+    login.login();
+    cy.ignoreReactError();
+    dashboard.goToSettings();
+    settings.deleteWorkspace();
   });
 });
