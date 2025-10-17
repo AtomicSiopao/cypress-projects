@@ -74,7 +74,7 @@ describe("VCam.ai Dashboard", () => {
   });
 
   // NAME TAGS
-  it.only("Should login to VCam.ai Dashboard using valid credentials", () => {
+  it("Should login to VCam.ai Dashboard using valid credentials", () => {
     login.login();
     cy.ignoreReactError();
     dashboard.goToNameTags();
