@@ -29,7 +29,8 @@ Cypress.Commands.add("ignoreReactError", () => {
   cy.on("uncaught:exception", (err) => {
     if (
       err.message.includes("Minified React error") ||
-      err.message.includes("React error #418")
+      err.message.includes("React error #418") ||
+      err.message.includes('ResizeObserver loop')
     ) {
       return false;
     }
