@@ -41,6 +41,10 @@ Cypress.Commands.add("getButtonByText", (text) => {
   return cy.contains("button", text, { timeout: 10000 });
 });
 
+Cypress.Commands.add("getLinkByText", (text) => {
+  return cy.contains("a", text, { timeout: 10000 });
+});
+
 Cypress.Commands.add("exists", (selector) => {
   return cy.get("body").then(($body) => $body.find(selector).length > 0);
 });
