@@ -18,7 +18,6 @@ class Settings {
   }
 
   get saveButton() {
-    // return cy.get('button[type="submit"]');
     return cy.getButtonByText("Save");
   }
 
@@ -30,12 +29,29 @@ class Settings {
     return cy.getButtonByText("Add domain");
   }
 
+  get verificationEmailField(){
+    return cy.get('input[name="emailAddress"]');
+  }
+
+  get addDomainButtonOnModal() {
+    //return cy.get('button[type="submit"]');
+    return cy.getButtonByText('Cancel').siblings('button');
+  }
+
+  get domainField(){
+    return cy.get('input[name="domain"]');
+  }
+
   get leaveWorkspaceHeader() {
     return cy.get("h2").should("contain", "Leave Workspace");
   }
 
   get cancelButton() {
     return cy.getButtonByText("Cancel");
+  }
+
+  setDomainDiscovery(type){
+    cy.getButtonByText(type).click();
   }
 
   renameWorkspace(name) {
@@ -52,6 +68,14 @@ class Settings {
       this.workspaceNameField.last().type(name);
       this.cancelButton.siblings("button").click();
     });
+  }
+
+  addDomain(domain, type, verificationEmail){ 
+    this.addDomainButton.click();
+    this.domainField.clear().type(domain);
+    this.setDomainDiscovery(type);
+    this.addDomainButtonOnModal.click();
+    this.verificationEmailField.clear().type(verificationEmail);
   }
 
   deleteWorkspace() {

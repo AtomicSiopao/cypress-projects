@@ -107,4 +107,13 @@ describe("VCam.ai Dashboard", () => {
     dashboard.goToSettings();
     settings.deleteWorkspace();
   });
+
+  it.skip("test only", () => { // Workspace Discovery cannot be tested via automation
+      const domain = "marco.com";
+      const verificationEmail = "kopi@marco.com"
+      login.login();
+      cy.ignoreReactError();
+      dashboard.goToSettings();
+      settings. addDomain(domain, 'Invite only', verificationEmail)  // type: Instant Access, Request to join, Invite only
+    });
 });

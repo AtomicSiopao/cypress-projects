@@ -1,8 +1,6 @@
 const login = require("../pageObjects/components/login");
-//const team = require("../pageObjects/components/team");
 const settings = require("../pageObjects/components/settings");
 const dashboard = require("../pageObjects/pages/dashboardPage");
-const onboarding = require("../pageObjects/components/onboarding");
 
 describe("VCam.ai Dashboard", () => {
   beforeEach(() => {
@@ -31,9 +29,11 @@ describe("VCam.ai Dashboard", () => {
   //   settings.leaveWorkspace();
   // });
 
-  it("Should login to VCam.ai Dashboard using valid credentials", () => {
+  it.only("test only", () => {
+    const domain = "marco.com";
     login.login();
     cy.ignoreReactError();
     dashboard.goToSettings();
+    settings. addDomain(domain, 'Invite only')  // type: Instant Access, Request to join, Invite only
   });
 });
