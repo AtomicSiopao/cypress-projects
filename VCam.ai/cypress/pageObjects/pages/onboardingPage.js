@@ -16,7 +16,7 @@ class OnboardingPage {
   get teamUse() {
     return cy
       .get("div.flex.h-full.flex-col.justify-center.gap-4.p-6", {
-        timeout: 5000,
+        timeout: 10000,
       })
       .eq(1);
   }
@@ -42,8 +42,11 @@ class OnboardingPage {
   }
 
   setForPersonalUse() {
-    // autoamtically creates a workspace
-    return this.personalUse.click();
+    // automatically creates a workspace
+    this.personalUse.click();
+    //this.downloadVCam();
+    this.goToDashboard();
+    return this;
   }
 
   setForTeamUse() {

@@ -19,7 +19,7 @@ class Settings {
 
   get saveButton() {
     // return cy.get('button[type="submit"]');
-    return cy.getButtonByText('Save');
+    return cy.getButtonByText("Save");
   }
 
   get workspaceDiscoveryHeader() {
@@ -39,7 +39,7 @@ class Settings {
   }
 
   renameWorkspace(name) {
-    cy.wait(3000)
+    cy.wait(3000);
     this.workspaceNameField.clear().wait(1000).type(name);
     cy.wait(1500);
     this.saveButton.click();
