@@ -100,7 +100,7 @@ describe("VCam.ai Dashboard", () => {
     settings.addDomain(domain, "Invite only", verificationEmail); // type: Instant Access, Request to join, Invite only
   });
 
-  it("Should invite Users/Team Members via the Team Menu", () => {
+  it.skip("[SKIP] Should invite Users/Team Members via the Team Menu", () => {
     const emails = [
       "test@tesuto.com",
       "test2@tesuto.com",

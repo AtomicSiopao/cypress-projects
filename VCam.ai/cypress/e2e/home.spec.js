@@ -18,17 +18,4 @@ describe("VCam.ai Home Page", () => {
   it("Should check all URLs in the Home Page are correct", () => {
     homePage.checkHomePageLinks();
   });
-  
-  // it('Should go to the VCam.ai Dashboard via Log in link', () => {
-  //   homePage.clickLogInLink();
-
-  // })
-
-  // it('Should visit the VCam.ai Homepage via Get started button', () => {
-  //   homePage.clickGetStartedLink();
-  // })
-
-  // it('Should visit the VCam.ai Homepage via Get started button', () => {
-  //   homePage.clickForCompaniesAndTeamsLink();
-  // })
 });
