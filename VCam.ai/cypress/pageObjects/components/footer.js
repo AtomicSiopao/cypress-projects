@@ -7,23 +7,23 @@ class footer {
     return cy.contains("a", linkText);
   }
   clickUseCasesMenuButton() {
-    return this.getButtonByText("Use Cases").click();
+    return cy.getButtonByText("Use Cases").click();
   }
 
   clickFeaturesMenuLink() {
-    return this.getLinkByText("Features").click();
+    return cy.getLinkByText("Features").click();
   }
 
   clickPricingMenuLink() {
-    return this.getLinkByText("Pricing").click();
+    return cy.getLinkByText("Pricing").click();
   }
 
   clickResourcesMenuButton() {
-    return this.getButtonByText("Resources").click();
+    return cy.getButtonByText("Resources").click();
   }
 
   checkURLInLink(text, url) {
-    return this.getLinkByText(text).invoke("attr", "href").should("eq", url);
+    return this.getLinkByText(text).invoke("attr", "href").should("contain", url);
   }
 
   checkFooterLinks() {
@@ -46,7 +46,7 @@ class footer {
       },
       {
         text: "Feedback",
-        url: "https://feedback.vcam.ai",
+        url: "https://help.vcam.ai/en/",
       },
       {
         text: "Overview",

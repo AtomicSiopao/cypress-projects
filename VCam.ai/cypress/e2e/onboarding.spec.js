@@ -6,11 +6,11 @@ const onboarding = require("../pageObjects/pages/onboardingPage");
 describe("VCam.ai Dashboard", () => {
   beforeEach(() => {
     dashboard.visit();
+    login.login();
+    cy.ignoreReactError();
   });
 
   it("Should login and select 'For Personal Use' on the onboarding page", () => {
-    login.login();
-    cy.ignoreReactError();
     onboarding.setForPersonalUse();
     onboarding.downloadVCam();
     dashboard.goToSettings();
@@ -26,8 +26,6 @@ describe("VCam.ai Dashboard", () => {
       //"test4@test.com",
       //"test5@test.com",
     ];
-    login.login();
-    cy.ignoreReactError();
     onboarding.setForTeamUse();
     onboarding.setupTeamWorkspace(wsName, members);
     dashboard.goToSettings();

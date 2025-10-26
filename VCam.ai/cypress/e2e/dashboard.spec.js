@@ -3,21 +3,23 @@ const dashboard = require("../pageObjects/pages/dashboardPage");
 const background = require("../pageObjects/components/background");
 const logo = require("../pageObjects/components/logo");
 const nametag = require("../pageObjects/components/nametag");
+const settings = require("../pageObjects/components/settings");
+const team = require("../pageObjects/components/team");
 
 describe("VCam.ai Dashboard", () => {
   beforeEach(() => {
     dashboard.visit();
+    login.login();
+    cy.ignoreReactError();
   });
 
   //LOGIN
-  it("Should login to VCam.ai Dashboard using valid credentials", () => {
-    login.login();
-  });
+  // it("Should login to VCam.ai Dashboard using valid credentials", () => {
+  //   login.login();
+  // });
 
   // DASHBOARD NAVIGATION
   it("Should check navigation in the Dashboard while logged in", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToDashboard();
     dashboard.goToBackgrounds();
     dashboard.goToLogos();
@@ -30,24 +32,18 @@ describe("VCam.ai Dashboard", () => {
 
   // BACKGROUNDS
   it("Should go to the Backgrounds page and upload image file as background then remove all backgrounds", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToBackgrounds();
     background.addBackgroundByImageUpload();
     background.deleteBackground(); // cleanup
   });
 
   it("Should go to the Backgrounds page and upload video file as background ", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToBackgrounds();
     background.addBackgroundByVideoUpload();
     background.deleteBackground(); // cleanup
   });
 
   it("Should go to the Backgrounds page and select a stock photo as background ", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToBackgrounds();
     background.addBackgroundByStockPhoto();
     background.setBackgroundStateMemberSettings(1);
@@ -57,16 +53,12 @@ describe("VCam.ai Dashboard", () => {
 
   // LOGOS
   it("Should go to the Logos page and upload image file as logo ", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToLogos();
     logo.addLogoByImageUpload();
     logo.deleteLogo(); // cleanup
   });
 
   it("Should go to the Logos page and upload video file as logo ", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToLogos();
     logo.addLogoByVideoUpload();
     logo.setLogoPermissionSettings(1);
@@ -75,8 +67,6 @@ describe("VCam.ai Dashboard", () => {
 
   // NAME TAGS
   it("Should go to Name Tags and setup a Name Tag", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToNameTags();
     nametag.selectNameTagDesign(2);
     nametag.setNameTag("KopiBoi", "Resident Sleeper");
@@ -84,36 +74,41 @@ describe("VCam.ai Dashboard", () => {
     nametag.allowMembersToToggleNameTag(0);
     nametag.allowMembersToSetDetails(0);
     nametag.allowMembersToSetDesign(0);
-    nametag.selectNameTagDesign(0); //Cleanup. Set to default again.
+    nametag.selectNameTagDesign(0); //Cleanup. Set to default design again.
   });
 
   it("Should go to Settings and set new workspace name", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToSettings();
     settings.renameWorkspace("Workspace ni Kopi");
   });
 
   it("Should go to Settings and leave workspace if account has more than 1 workspace", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToSettings();
     settings.leaveWorkspace();
   });
 
   it("Should go to Settings set delete workspace if account has more than 1 workspace", () => {
-    login.login();
-    cy.ignoreReactError();
     dashboard.goToSettings();
     settings.deleteWorkspace();
   });
 
-  it.skip("test only", () => { // Workspace Discovery cannot be tested via automation
-      const domain = "marco.com";
-      const verificationEmail = "kopi@marco.com"
-      login.login();
-      cy.ignoreReactError();
-      dashboard.goToSettings();
-      settings. addDomain(domain, 'Invite only', verificationEmail)  // type: Instant Access, Request to join, Invite only
-    });
+  it.skip("SKIP: Domain and Workspace Discovery - Current LIMITATION", () => {
+    // Workspace Discovery cannot be tested via automation
+    const domain = "marco.com";
+    const verificationEmail = "kopi@marco.com";
+    dashboard.goToSettings();
+    settings.addDomain(domain, "Invite only", verificationEmail); // type: Instant Access, Request to join, Invite only
+  });
+
+  it("Should invite Users/Team Members via the Team Menu", () => {
+    const emails = [
+      "test@tesuto.com",
+      "test2@tesuto.com",
+      "test3@tesuto.com",
+      //"test4@test.com",
+      //"test5@test.com",
+    ];
+    dashboard.goToTeam();
+    team.inviteUsers(emails, "Member");
+  });
 });

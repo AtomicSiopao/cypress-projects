@@ -32,17 +32,19 @@ class Team {
     return cy.get('select[name="role"]');
   }
 
+  get inviteNewMembersOverlay(){
+    return ;
+  }
+
   get inviteMembersButton() {
     return cy.getButtonByText("Invite Members");
   }
 
   get resendInvitesButton(){
-    return cyu.getButtonByText('Resend invites');
+    return cy.getButtonByText('Resend invites');
   }
-  // MACHINES
-  get machinesList() {}
-
-  get inviteMembersButton() {}
+  // MACHINES - CURRENT LIMITATION
+  //get machinesList() {}
 
   // ACTIONS
   inviteUsers(emails, role) {
@@ -51,7 +53,7 @@ class Team {
       this.emailField.type(email + ",");
     });
     this.roleDropdown.select(role);
-    this.inviteMembersButton.click();
+    this.inviteMembersButton.should('be.visible').click();
   }
 }
 module.exports = new Team();
