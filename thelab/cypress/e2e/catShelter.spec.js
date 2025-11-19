@@ -6,13 +6,6 @@ describe("Add or remove a cat in the Cat Shelter", () => {
         catShelterPage.visit();
     });
 
-    const cat =
-    {
-        name: "Jopi",
-        description: "Pug",
-        preference: "inside" // inside or outside
-    }
-
     it("should add cat to cat shelter", () => {
         catShelterPage.clickAddCat();
         addCatPage.createCat(cat.name, cat.description, cat.preference);
