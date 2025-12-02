@@ -1,0 +1,27 @@
+{
+  "catShelter": {
+    "catName": "Bellatrix",
+    "catDescription": "A playful black cat who loves to chase laser pointers.",
+    "catPreference": "outside"
+  },
+
+  "sortedList": {
+    "maxItems": 5
+  },
+
+  "formFill": {
+    "firstname": "Maya",
+    "lastname": "Castillo",
+    "username": "mcastillo",
+    "email": "maya.castillo@example.com",
+    "password": "Pass123!"
+  },
+
+  "tables": {
+    "animals": [
+      "lion",
+      "elephant",
+      "zebra"
+    ]
+  }
+}

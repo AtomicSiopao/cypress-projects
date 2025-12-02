@@ -43,6 +43,10 @@ class SpeedGamePage {
 
     checkScore() {
         this.score.should('contain.text', 'Your reaction time is');
+        this.score.then(($scoreInMS) =>{
+            const scoreText = $scoreInMS.text();
+            cy.log(scoreText);
+        })
         return this;
     }
 

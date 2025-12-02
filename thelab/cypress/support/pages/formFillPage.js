@@ -32,6 +32,10 @@ class formFillPage {
         return cy.get('button.form_btn.orange')
     }
 
+    get removeUserButton() {
+        return cy.get('button.icon_btn');
+    }
+
     // Setters
     setFirstName(firstName) {
         this.firstName.clear().type(firstName);
@@ -91,6 +95,12 @@ class formFillPage {
     checkIfUserIsInDB(firstName, lastName) {
         this.setUserToCheck(firstName, lastName).should('be.visible');
         return this;
+    }
+
+    removeUserFromDB(firstName, lastName){
+        this.clickUserInDBButton();
+        this.setUserToCheck(firstName, lastName).should('be.visible');
+        this.removeUserButton.first().click();
     }
 }
 module.exports = new formFillPage();
