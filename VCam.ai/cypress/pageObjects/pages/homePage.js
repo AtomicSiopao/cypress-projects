@@ -61,23 +61,9 @@ class HomePage {
   }
 
   checkHomePageLinks() {
-    const linksToCheck = [
-      {
-        text: "Read the Intel white paper",
-        url: "https://www.intel.com/content/dam/develop/external/us/en/documents/xsplitvcam.pdf",
-      },
-      {
-        text: "Learn how to get started",
-        url: "https://help.vcam.ai/en/article/quick-start-guide-1a762y2/",
-      },
-      {
-        text: "Contact Sales",
-        url: "https://www.vcam.ai/sales",
-      },
-    ];
-
-    linksToCheck.forEach(({ text, url }) => this.checkURLInLink(text, url));
-    return this;
+    cy.fixture("links.json").then((links) => {
+      links.homePageLinks.map(({ text, url }) => this.checkURLInLink(text, url));
+    });
   }
 }
 

@@ -1,0 +1,13 @@
+{
+  "workspace": {
+    "name": "User Management Workspace",
+    "members": [
+      "user1@user.com",
+      "user2@user.com",
+      "user3@user.com",
+      "user4@user.com",
+      "user5@user.com"
+    ],
+    "code": "UPGRADE-CODE-12345" // Requires valid license to pass.
+  }
+}

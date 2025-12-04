@@ -1,32 +1,49 @@
 class DashboardPage {
-  // ====== SELECTORS ======
-  get header() {
-    return cy.get("h1", { timeout: 10000 }).should("contain", "Dashboard");
+  // ===== GETTERS ======
+  get redeemLicenseLink() {
+    return cy.getLinkByText("Redeem a license key");
   }
 
-  get passwordField() {
-    return cy.get('input[name="password"]');
+  get redemptionCodeField() {
+    return cy.get(
+      'input[placeholder="eg. 7073925a-5826-4c34-b432-c9c87e4ba87c"]'
+    );
   }
 
-  get continueButton() {
-    return cy.get('button[data-localization-key="formButtonPrimary"]');
+  get redeemButton() {
+    return cy.getButtonByText("Redeem license key");
   }
 
-  // ====== CONSTANT MAP ======
-  dashboardURLs = {
-    dashboard: "https://dashboard.vcam.ai/",
-    backgrounds: "https://dashboard.vcam.ai/app/backgrounds",
-    logos: "https://dashboard.vcam.ai/app/logos",
-    "name tags": "https://dashboard.vcam.ai/app/nametags",
-    team: "https://dashboard.vcam.ai/workspace/team",
-    billing: "https://dashboard.vcam.ai/workspace/billing",
-    settings: "https://dashboard.vcam.ai/workspace/settings",
-    deployment: "https://dashboard.vcam.ai/workspace/deployment",
+  // ====== URL & HEADER MAP ======
+  sections = {
+    dashboard: { url: "https://dashboard.vcam.ai/", header: "Dashboard" },
+    backgrounds: {
+      url: "https://dashboard.vcam.ai/app/backgrounds",
+      header: "Backgrounds",
+    },
+    logos: { url: "https://dashboard.vcam.ai/app/logos", header: "Logos" },
+    nametags: {
+      url: "https://dashboard.vcam.ai/app/nametags",
+      header: "Name Tags",
+    },
+    team: { url: "https://dashboard.vcam.ai/workspace/team", header: "Team" },
+    billing: {
+      url: "https://dashboard.vcam.ai/workspace/billing",
+      header: "Billing",
+    },
+    settings: {
+      url: "https://dashboard.vcam.ai/workspace/settings",
+      header: "Settings",
+    },
+    deployment: {
+      url: "https://dashboard.vcam.ai/workspace/deployment",
+      header: "Deployment",
+    },
   };
 
   // ====== ACTIONS ======
   visit() {
-    cy.visit("https://dashboard.vcam.ai/");
+    cy.visit(this.sections.dashboard.url);
     return this;
   }
 
@@ -39,103 +56,86 @@ class DashboardPage {
     return this;
   }
 
+  checkHeader(section) {
+    const key = section.toLowerCase().replace(/\s+/g, "");
+    const expectedHeader = this.sections[key]?.header;
+    if (!expectedHeader) throw new Error(`Invalid section: "${section}".`);
+
+    cy.get("h1", { timeout: 10000 }).should("contain", expectedHeader);
+    return this;
+  }
+
   checkURL(section) {
-    const expectedURL = this.dashboardURLs[section.toLowerCase()];
-    if (!expectedURL) {
-      throw new Error(
-        `Invalid section: "${section}". Check your dashboardURLs map.`
-      );
-    }
+    const key = section.toLowerCase().replace(/\s+/g, "");
+    const expectedURL = this.sections[key]?.url;
+    if (!expectedURL) throw new Error(`Invalid section: "${section}".`);
 
     cy.url().should("eq", expectedURL);
     return this;
   }
 
-  // ====== NAVIGATION SHORTCUTS ======
-  // GENERAL
-  clickDashboard() {
-    return this.clickLink("Dashboard");
-  }
-  clickDownloadForWindows() {
-    return this.clickLink("Download for Windows");
-  }
-  clickLearnHowToUseVCam() {
-    return this.clickLink("Learn how to use VCam");
-  }
-  clickSeePlans() {
-    return this.clickLink("See plans");
-  }
-  clickInviteTeamNow() {
-    return this.clickLink("Invite team now");
-  }
-  clickManage() {
-    return this.clickLink("Manage");
+  // ====== NAVIGATION HELPERS ======
+  navigateTo(section) {
+    const key = section.toLowerCase().replace(/\s+/g, "");
+    const sectionData = this.sections[key];
+
+    if (!sectionData) throw new Error(`Invalid section: "${section}".`);
+
+    // Click matching link text (header text and link label are the same)
+    this.clickLink(sectionData.header);
+
+    // Validate both URL and header
+    this.checkURL(key);
+    this.checkHeader(key);
+
+    return this;
   }
 
-  // APP
-  clickBackgrounds() {
-    return this.clickLink("Backgrounds");
-  }
-  clickLogos() {
-    return this.clickLink("Logos");
-  }
-  clickNameTags() {
-    return this.clickLink("Name Tags");
-  }
-
-  // WORKSPACE
-  clickTeam() {
-    return this.clickLink("Team");
-  }
-  clickBilling() {
-    return this.clickLink("Billing");
-  }
-  clickSettings() {
-    return this.clickLink("Settings");
-  }
-  clickDeployment() {
-    return this.clickLink("Deployment");
-  }
-
-  // OTHERS
-  clickHelpCenter() {
-    return this.clickLink("Help center");
-  }
-  clickGiveFeedback() {
-    return this.clickLink("Give feedback");
-  }
-
-  // ====== GO TO ======
+  // ====== SHORTCUTS ======
   goToDashboard() {
-    this.clickBackgrounds().checkURL("dashboard");
+    return this.navigateTo("dashboard");
   }
 
   goToBackgrounds() {
-    this.clickBackgrounds().checkURL("backgrounds");
+    return this.navigateTo("backgrounds");
   }
 
   goToLogos() {
-    this.clickLogos().checkURL("logos");
+    return this.navigateTo("logos");
   }
 
   goToNameTags() {
-    this.clickNameTags().checkURL("name tags");
+    return this.navigateTo("nametags");
   }
 
   goToTeam() {
-    this.clickTeam().checkURL("team");
+    return this.navigateTo("team");
   }
 
   goToBilling() {
-    this.clickBilling().checkURL("billing");
-  }
-
-  goToBillingFromDashboard() {
-    this.clickDashboard().clickSeePlans().checkURL("billing");
+    return this.navigateTo("billing");
   }
 
   goToSettings() {
-    this.clickSettings().checkURL("settings");
+    return this.navigateTo("settings");
+  }
+
+  goToDeployment() {
+    return this.navigateTo("deployment");
+  }
+
+  goToBillingFromDashboard() {
+    this.clickLink("Dashboard");
+    this.clickLink("See plans");
+    this.checkURL("billing").checkHeader("billing");
+    return this;
+  }
+
+  upgradeLicense(code) {
+    this.redeemLicenseLink.click();
+    this.redemptionCodeField.clear().type(code);
+    this.redeemButton.click();
+    return this;
   }
 }
 

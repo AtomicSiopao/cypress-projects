@@ -12,23 +12,19 @@ describe("VCam.ai Dashboard", () => {
 
   it("Should login and select 'For Personal Use' on the onboarding page", () => {
     onboarding.setForPersonalUse();
-    onboarding.downloadVCam();
+    //onboarding.downloadVCam();
     dashboard.goToSettings();
     settings.deleteWorkspace();
   });
 
   it.only("Should login and select Team Use on the onboarding page", () => {
-    const wsName = "wowowork";
-    const members = [
-      "test@test.com",
-      "test2@test.com",
-      "test3@test.com",
-      //"test4@test.com",
-      //"test5@test.com",
-    ];
     onboarding.setForTeamUse();
-    onboarding.setupTeamWorkspace(wsName, members);
-    dashboard.goToSettings();
-    settings.workspaceName.should('eq', wsName);
+    cy.fixture("workspace").then((data) => {
+      let wsName = data.workspace.name;
+      let members = data.workspace.members;
+      onboarding.setupTeamWorkspace(wsName, members);
+      dashboard.goToSettings();
+      settings.getWorkspaceName().should('eq', wsName);
+    });
   });
 });

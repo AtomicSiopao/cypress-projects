@@ -1,8 +1,7 @@
-class Settings {
+class SettingsPage {
+  // ====== SELECTORS ======
   get header() {
-    return cy
-      .get("h1", { timeout: 10000 })
-      .should("contain", "Workspace Settings");
+    return cy.get("h1", { timeout: 10000 }).should("contain", "Workspace Settings");
   }
 
   get uploadLogoButton() {
@@ -11,10 +10,6 @@ class Settings {
 
   get workspaceNameField() {
     return cy.get('input[name="name"]');
-  }
-
-  get workspaceName() {
-    return this.workspaceNameField.invoke("val").as("workspaceName");
   }
 
   get saveButton() {
@@ -29,16 +24,15 @@ class Settings {
     return cy.getButtonByText("Add domain");
   }
 
-  get verificationEmailField(){
+  get verificationEmailField() {
     return cy.get('input[name="emailAddress"]');
   }
 
   get addDomainButtonOnModal() {
-    //return cy.get('button[type="submit"]');
-    return cy.getButtonByText('Cancel').siblings('button');
+    return cy.getButtonByText("Cancel").siblings("button");
   }
 
-  get domainField(){
+  get domainField() {
     return cy.get('input[name="domain"]');
   }
 
@@ -50,41 +44,50 @@ class Settings {
     return cy.getButtonByText("Cancel");
   }
 
-  setDomainDiscovery(type){
+  // ====== HELPERS ======
+  getWorkspaceName() {
+    return this.workspaceNameField.invoke("val");
+  }
+
+  setDomainDiscovery(type) {
     cy.getButtonByText(type).click();
   }
 
-  renameWorkspace(name) {
-    cy.wait(3000);
-    this.workspaceNameField.clear().wait(1000).type(name);
-    cy.wait(1500);
+  // ====== ACTIONS ======
+  renameWorkspace(newName) {
+    this.workspaceNameField
+      .clear({ force: true })
+      .type(newName, { delay: 50 });
     this.saveButton.click();
+    return this;
   }
 
   leaveWorkspace() {
-    this.workspaceName;
-    cy.get("@workspaceName").then((name) => {
+    this.getWorkspaceName().then((name) => {
       cy.getButtonByText(`Leave "${name}"`).click();
-      this.workspaceNameField.last().type(name);
+      cy.get('input[name="name"]').last().type(name);
       this.cancelButton.siblings("button").click();
     });
+    return this;
   }
 
-  addDomain(domain, type, verificationEmail){ 
+  deleteWorkspace() {
+    this.getWorkspaceName().then((name) => {
+      cy.getButtonByText(`Delete "${name}"`).click();
+      cy.get('input[name="name"]').last().type(name);
+      this.cancelButton.siblings("button").click();
+    });
+    return this;
+  }
+
+  addDomain(domain, type, verificationEmail) {
     this.addDomainButton.click();
     this.domainField.clear().type(domain);
     this.setDomainDiscovery(type);
     this.addDomainButtonOnModal.click();
     this.verificationEmailField.clear().type(verificationEmail);
-  }
-
-  deleteWorkspace() {
-    this.workspaceName;
-    cy.get("@workspaceName").then((name) => {
-      cy.getButtonByText(`Delete "${name}"`).click();
-      this.workspaceNameField.last().type(name);
-      this.cancelButton.siblings("button").click();
-    });
+    return this;
   }
 }
-module.exports = new Settings();
+
+module.exports = new SettingsPage();

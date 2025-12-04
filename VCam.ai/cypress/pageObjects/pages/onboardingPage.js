@@ -41,8 +41,7 @@ class OnboardingPage {
     return cy.getLinkByText("Dashboard");
   }
 
-  setForPersonalUse() {
-    // automatically creates a workspace
+  setForPersonalUse() { // automatically creates a workspace
     this.personalUse.click();
     //this.downloadVCam();
     this.goToDashboard();
