@@ -1,6 +1,7 @@
 {
   "workspace": {
     "name": "User Management Workspace",
+    "logoPath": "cypress/fixtures/aslogo.png",
     "members": [
       "user1@user.com",
       "user2@user.com",
@@ -8,6 +9,6 @@
       "user4@user.com",
       "user5@user.com"
     ],
-    "code": "UPGRADE-CODE-12345" // Requires valid license to pass.
+    "code": "UPGRADE-CODE-12345"
   }
 }

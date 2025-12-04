@@ -1,11 +1,17 @@
 class SettingsPage {
   // ====== SELECTORS ======
   get header() {
-    return cy.get("h1", { timeout: 10000 }).should("contain", "Workspace Settings");
+    return cy
+      .get("h1", { timeout: 10000 })
+      .should("contain", "Workspace Settings");
   }
 
   get uploadLogoButton() {
-    return cy.get('button[title="Upload logo"]');
+    return cy.get('button[title="Upload logo"]', { timeout: 10000 });
+  }
+
+  get uploadLogoInput() {
+    return cy.get('input[type="file"]');
   }
 
   get workspaceNameField() {
@@ -45,6 +51,13 @@ class SettingsPage {
   }
 
   // ====== HELPERS ======
+
+  uploadLogo(filePath) {
+    //this.uploadLogoButton.click();
+    this.uploadLogoInput.selectFile(filePath, { force: true });
+    return this;
+  }
+
   getWorkspaceName() {
     return this.workspaceNameField.invoke("val");
   }
@@ -55,9 +68,7 @@ class SettingsPage {
 
   // ====== ACTIONS ======
   renameWorkspace(newName) {
-    this.workspaceNameField
-      .clear({ force: true })
-      .type(newName, { delay: 50 });
+    this.workspaceNameField.clear({ force: true }).type(newName, { delay: 50 });
     this.saveButton.click();
     return this;
   }

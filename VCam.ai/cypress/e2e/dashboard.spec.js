@@ -6,6 +6,7 @@ const logo = require("../pageObjects/components/logo");
 const nametag = require("../pageObjects/components/nametag");
 const settings = require("../pageObjects/components/settings");
 const team = require("../pageObjects/components/team");
+const billing = require("../pageObjects/components/billing");
 const now = new Date().toLocaleTimeString();
 
 describe("VCam.ai Dashboard", () => {
@@ -13,7 +14,6 @@ describe("VCam.ai Dashboard", () => {
     dashboard.visit();
     login.login();
     cy.ignoreReactError();
-    //cy.fixture("users.json").as("users");
   });
 
   context("Dashboard Navigation", () => {
@@ -92,6 +92,12 @@ describe("VCam.ai Dashboard", () => {
       dashboard.goToSettings();
     });
 
+    it.only("should change workspace logo", () => {
+      cy.fixture("workspace").then((data) => {
+        settings.uploadLogo(data.workspace.logoPath);
+      });
+    });
+
     it("should rename the workspace", () => {
       settings.renameWorkspace(`Workspace ni Kopi ${now}`);
     });
@@ -124,9 +130,9 @@ describe("VCam.ai Dashboard", () => {
       dashboard.goToBilling();
     });
 
-    it.only("should upgrade license using code", () => {
-      cy.fixture('workspace').then((data) => {
-        dashboard.upgradeLicense(data.workspace.code);
+    it("should upgrade license by redeeming license code", () => {
+      cy.fixture("workspace").then((data) => {
+        billing.upgradeLicense(data.workspace.code);
       });
     });
   });
