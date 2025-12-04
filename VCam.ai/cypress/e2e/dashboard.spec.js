@@ -92,7 +92,7 @@ describe("VCam.ai Dashboard", () => {
       dashboard.goToSettings();
     });
 
-    it.only("should change workspace logo", () => {
+    it("should change workspace logo", () => {
       cy.fixture("workspace").then((data) => {
         settings.uploadLogo(data.workspace.logoPath);
       });
