@@ -17,7 +17,7 @@ describe("VCam.ai Dashboard", () => {
     settings.deleteWorkspace();
   });
 
-  it.only("Should login and select Team Use on the onboarding page", () => {
+  it("Should login and select Team Use on the onboarding page", () => {
     onboarding.setForTeamUse();
     cy.fixture("workspace").then((data) => {
       let wsName = data.workspace.name;
