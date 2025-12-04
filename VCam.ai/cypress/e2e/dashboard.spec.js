@@ -7,6 +7,7 @@ const nametag = require("../pageObjects/components/nametag");
 const settings = require("../pageObjects/components/settings");
 const team = require("../pageObjects/components/team");
 const billing = require("../pageObjects/components/billing");
+const userSettings = require("../pageObjects/components/userSettings");
 const now = new Date().toLocaleTimeString();
 
 describe("VCam.ai Dashboard", () => {
@@ -136,4 +137,17 @@ describe("VCam.ai Dashboard", () => {
       });
     });
   });
+
+  context.only("User Profile", () => {
+    beforeEach(() => {
+      dashboard.goToUserSettings();
+    });
+
+    it("should update user's name", () => {
+      cy.fixture("workspace").then((data) => {
+        userSettings.updateUserInfo(data.user.firstName, data.user.lastName);
+      });
+    });
+  });
+
 });
