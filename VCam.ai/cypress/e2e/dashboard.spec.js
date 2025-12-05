@@ -138,7 +138,7 @@ describe("VCam.ai Dashboard", () => {
     });
   });
 
-  context.only("User Profile", () => {
+  context("User Profile", () => {
     beforeEach(() => {
       dashboard.goToUserSettings();
     });
